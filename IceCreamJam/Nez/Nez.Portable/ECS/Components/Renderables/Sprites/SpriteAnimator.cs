@@ -189,6 +189,15 @@ namespace Nez.Sprites
 			_loopMode = loopMode ?? LoopMode.Loop;
 		}
 
+		public void PlayContinuing(string name, LoopMode? loopMode = null) {
+			CurrentAnimation = _animations[name];
+			CurrentAnimationName = name;
+			AnimationState = State.Running;
+
+			Sprite = CurrentAnimation.Sprites[CurrentFrame];
+			_loopMode = loopMode ?? LoopMode.Loop;
+		}
+
 		/// <summary>
 		/// checks to see if the animation is playing (i.e. the animation is active. it may still be in the paused state)
 		/// </summary>
