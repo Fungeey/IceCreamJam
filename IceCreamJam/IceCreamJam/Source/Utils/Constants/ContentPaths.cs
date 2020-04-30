@@ -1,4 +1,4 @@
-﻿namespace IceCreamJam.Source.Content {
+﻿namespace IceCreamJam {
     class ContentPaths {
         public const string Content = "Content/";
         public const string Sprites = Content + "Sprites/";

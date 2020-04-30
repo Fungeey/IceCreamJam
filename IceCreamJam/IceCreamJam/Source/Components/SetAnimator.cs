@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class SetAnimator : Component, IUpdatable {
 		private SpriteAnimator animator;
 

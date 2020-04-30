@@ -2,7 +2,7 @@
 using Nez;
 using Nez.Sprites;
 
-namespace IceCreamJam.Source.Entities {
+namespace IceCreamJam.Entities {
     class SpriteEntity : Entity {
         public SpriteRenderer renderer;
         public bool defaultVisible = true;

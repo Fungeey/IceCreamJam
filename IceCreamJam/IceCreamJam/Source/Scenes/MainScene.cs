@@ -1,14 +1,14 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Entities;
-using IceCreamJam.Source.Entities.Enemies;
-using IceCreamJam.Source.Systems;
-using IceCreamJam.Source.Tiled;
-using IceCreamJam.Source.UI;
+﻿using IceCreamJam.Components;
+
+using IceCreamJam.Entities;
+using IceCreamJam.Entities.Enemies;
+using IceCreamJam.Systems;
+using IceCreamJam.Tiled;
+using IceCreamJam.UI;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.Scenes {
+namespace IceCreamJam.Scenes {
     class MainScene : Scene {
 
         TilemapLoader loader;

@@ -2,7 +2,7 @@
 using Nez.Sprites;
 using Nez.Textures;
 
-namespace IceCreamJam.Source {
+namespace IceCreamJam {
     static class Utility {
         public static int Mod(int x, int m) {
             return (x % m + m) % m;

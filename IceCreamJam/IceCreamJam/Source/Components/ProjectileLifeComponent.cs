@@ -1,7 +1,7 @@
-﻿using IceCreamJam.Source.WeaponSystem;
+﻿using IceCreamJam.WeaponSystem;
 using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
     class ProjectileLifeComponent : Component, IUpdatable {
         public float lifetime;
         public float timeProgress;

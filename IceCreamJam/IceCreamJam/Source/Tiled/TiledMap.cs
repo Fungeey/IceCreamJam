@@ -1,7 +1,7 @@
 ﻿using Nez;
 using Nez.Tiled;
 
-namespace IceCreamJam.Source.Tiled {
+namespace IceCreamJam.Tiled {
     class TiledMap : Entity {
 
         TmxMap map;

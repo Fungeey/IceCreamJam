@@ -1,12 +1,12 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Scenes;
-using IceCreamJam.Source.UI;
+﻿using IceCreamJam.Components;
+using IceCreamJam.Scenes;
+using IceCreamJam.UI;
 using Microsoft.Xna.Framework;
 using Nez;
 using System;
 using System.Collections.Generic;
 
-namespace IceCreamJam.Source.WeaponSystem {
+namespace IceCreamJam.WeaponSystem {
     class PlayerWeaponComponent : Component, IUpdatable {
 
         public const int MaxAmmo = 50;

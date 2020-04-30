@@ -1,8 +1,8 @@
-﻿using IceCreamJam.Source.Systems;
+﻿using IceCreamJam.Systems;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.WeaponSystem {
+namespace IceCreamJam.WeaponSystem {
     class HomingProjectile : Projectile {
 
         public float turnSpeed = 0.05f;

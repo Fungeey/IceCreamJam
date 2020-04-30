@@ -1,8 +1,8 @@
-﻿using IceCreamJam.Source.Components;
+﻿using IceCreamJam.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.Entities.Enemies {
+namespace IceCreamJam.Entities.Enemies {
     abstract class Enemy : NPC, IPoolable {
 
         public RenderableComponent renderer;

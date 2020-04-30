@@ -1,9 +1,9 @@
-﻿using IceCreamJam.Source.WeaponSystem;
+﻿using IceCreamJam.WeaponSystem;
 using Microsoft.Xna.Framework;
 using Nez;
 using System.Collections.Generic;
 
-namespace IceCreamJam.Source.Systems {
+namespace IceCreamJam.Systems {
     class HomingProjectileSystem : EntitySystem {
 
         public List<HomingProjectile> projectiles;

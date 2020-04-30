@@ -1,13 +1,12 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Entities;
-using IceCreamJam.Source.WeaponSystem.Projectiles;
+﻿using IceCreamJam.Components;
+using IceCreamJam.Entities;
+using IceCreamJam.WeaponSystem.Projectiles;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Textures;
 using System;
 
-namespace IceCreamJam.Source.WeaponSystem.Weapons {
+namespace IceCreamJam.WeaponSystem.Weapons {
     class ScoopGun : Weapon {
 
         private Scoop.ScoopType type = Scoop.ScoopType.Chocolate;

@@ -1,10 +1,10 @@
-﻿using IceCreamJam.Source.Components;
+﻿using IceCreamJam.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 
-namespace IceCreamJam.Source.Entities.Civilians {
+namespace IceCreamJam.Entities.Civilians {
     class Civilian : NPC {
         private readonly string texturePath;
         private SpriteAnimator animator;

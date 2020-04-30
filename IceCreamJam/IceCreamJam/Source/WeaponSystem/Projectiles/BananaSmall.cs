@@ -1,11 +1,10 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Entities.Enemies;
+﻿using IceCreamJam.Entities.Enemies;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 
-namespace IceCreamJam.Source.WeaponSystem.Projectiles {
+namespace IceCreamJam.WeaponSystem.Projectiles {
     class BananaSmall : Projectile {
 
         private int hits;
@@ -22,7 +21,7 @@ namespace IceCreamJam.Source.WeaponSystem.Projectiles {
             this.hits = 0;
             this.damage = 1;
 
-            if(this.renderer != null)
+            if (this.renderer != null)
                 (this.renderer as SpriteAnimator).Play($"Fly{hits}");
 
             this.otherCollider = null;
@@ -38,7 +37,7 @@ namespace IceCreamJam.Source.WeaponSystem.Projectiles {
             var texture = Scene.Content.LoadTexture(ContentPaths.Banana_Small);
             var sprites = Sprite.SpritesFromAtlas(texture, 24, 24, 0);
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
                 animator.AddAnimation($"Fly{i}", Constants.GlobalFPS * 4, sprites.GetRange(i * 8, 8).ToArray());
             animator.Play("Fly0");
 
@@ -58,14 +57,14 @@ namespace IceCreamJam.Source.WeaponSystem.Projectiles {
         }
 
         private void CheckCollision() {
-            if(collider.CollidesWithAny(out var result)) {
-                if(otherCollider == result.Collider)
+            if (collider.CollidesWithAny(out var result)) {
+                if (otherCollider == result.Collider)
                     return;
 
-                if(result.Collider.Entity is Enemy)
+                if (result.Collider.Entity is Enemy)
                     (result.Collider.Entity as Enemy).Damage(damage);
 
-                if(hits == 2)
+                if (hits == 2)
                     Pool<BananaSmall>.Free(this);
                 else
                     (this.renderer as SpriteAnimator).Play($"Fly{++hits}");
@@ -86,7 +85,7 @@ namespace IceCreamJam.Source.WeaponSystem.Projectiles {
 
         public override void OnHit(CollisionResult? result) {
             // Death by timeout
-            if(!result.HasValue)
+            if (!result.HasValue)
                 Pool<BananaSmall>.Free(this);
         }
     }

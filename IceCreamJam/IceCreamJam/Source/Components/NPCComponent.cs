@@ -1,6 +1,6 @@
 ﻿using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
     class NPCComponent : Component {
     }
 }

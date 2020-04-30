@@ -1,9 +1,9 @@
-﻿using IceCreamJam.Source.Entities;
+﻿using IceCreamJam.Entities;
 using Nez;
 using Nez.AI.FSM;
 using System;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class PlayerStateMachine : Component {
 
 		public StateMachine<Truck> stateMachine;

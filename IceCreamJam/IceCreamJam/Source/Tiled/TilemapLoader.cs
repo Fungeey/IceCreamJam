@@ -1,8 +1,8 @@
-﻿using IceCreamJam.Source.Entities;
+﻿using IceCreamJam.Entities;
 using Nez;
 using Nez.Tiled;
 
-namespace IceCreamJam.Source.Tiled {
+namespace IceCreamJam.Tiled {
     class TilemapLoader : SceneComponent {
         public override void OnEnabled() {
             base.OnEnabled();

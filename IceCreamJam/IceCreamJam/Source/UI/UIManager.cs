@@ -1,13 +1,12 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Scenes;
-using IceCreamJam.Source.WeaponSystem;
+﻿using IceCreamJam.Scenes;
+using IceCreamJam.WeaponSystem;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Textures;
 using Nez.UI;
 using System.Collections.Generic;
 
-namespace IceCreamJam.Source.UI {
+namespace IceCreamJam.UI {
     class UIManager : Entity {
         UICanvas frame, internals;
 

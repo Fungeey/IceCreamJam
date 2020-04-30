@@ -1,4 +1,4 @@
-﻿using IceCreamJam.Source.Content;
+﻿
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
@@ -6,7 +6,7 @@ using Nez.Textures;
 using System;
 using System.Collections;
 
-namespace IceCreamJam.Source.WeaponSystem {
+namespace IceCreamJam.WeaponSystem {
     abstract class Weapon : Entity {
 
         protected Type projectileType;

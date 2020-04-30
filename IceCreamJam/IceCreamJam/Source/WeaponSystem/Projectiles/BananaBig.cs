@@ -1,11 +1,11 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Entities.Enemies;
+﻿
+using IceCreamJam.Entities.Enemies;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 
-namespace IceCreamJam.Source.WeaponSystem.Projectiles {
+namespace IceCreamJam.WeaponSystem.Projectiles {
     class BananaBig : Projectile {
 
         private float awayVelocity;

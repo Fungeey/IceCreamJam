@@ -1,11 +1,10 @@
-﻿using IceCreamJam.Source.Content;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 using System;
 
-namespace IceCreamJam.Source.UI {
+namespace IceCreamJam.UI {
     class Crosshair : Entity {
 
         private SpriteAnimator animator;

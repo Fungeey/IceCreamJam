@@ -4,7 +4,7 @@ using Nez.Systems;
 using System.Collections.Generic;
 using System.IO;
 
-namespace IceCreamJam.Source.Content {
+namespace IceCreamJam {
 	public static class ContentManagerExt {
 		public static List<Vector2[]> LoadPolygons(this NezContentManager content, string name) {
 			List<Vector2[]> polys = new List<Vector2[]>();

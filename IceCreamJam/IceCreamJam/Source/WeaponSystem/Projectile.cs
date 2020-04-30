@@ -1,11 +1,11 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Entities.Enemies;
-using IceCreamJam.Source.WeaponSystem.EnemyWeapons;
+﻿using IceCreamJam.Components;
+using IceCreamJam.Entities.Enemies;
+using IceCreamJam.WeaponSystem.EnemyWeapons;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 
-namespace IceCreamJam.Source.WeaponSystem {
+namespace IceCreamJam.WeaponSystem {
     abstract class Projectile : Entity, IPoolable {
         public float cost;
         public float damage;

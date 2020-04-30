@@ -1,11 +1,11 @@
-﻿using IceCreamJam.Source.Entities;
-using IceCreamJam.Source.Entities.Civilians;
+﻿using IceCreamJam.Entities;
+using IceCreamJam.Entities.Civilians;
 using Microsoft.Xna.Framework;
 using Nez;
 using System;
 using System.Collections.Generic;
 
-namespace IceCreamJam.Source.Systems {
+namespace IceCreamJam.Systems {
     class CivilianSystem : EntitySystem {
         private Truck truck;
 

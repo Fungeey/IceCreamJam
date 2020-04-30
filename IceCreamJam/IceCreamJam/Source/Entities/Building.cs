@@ -1,8 +1,7 @@
-﻿using IceCreamJam.Source.Content;
-using Nez;
+﻿using Nez;
 using Nez.Sprites;
 
-namespace IceCreamJam.Source.Entities {
+namespace IceCreamJam.Entities {
     class Building : Entity {
         public override void OnAddedToScene() {
             base.OnAddedToScene();

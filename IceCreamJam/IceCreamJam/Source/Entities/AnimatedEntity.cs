@@ -1,7 +1,7 @@
 ﻿using Nez;
 using Nez.Sprites;
 
-namespace IceCreamJam.Source.Entities {
+namespace IceCreamJam.Entities {
     class AnimatedEntity : Entity {
         public SpriteAnimator animator;
         public AnimatedEntity() {

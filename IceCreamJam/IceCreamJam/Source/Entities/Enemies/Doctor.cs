@@ -1,12 +1,12 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.WeaponSystem.EnemyWeapons;
+﻿
+using IceCreamJam.WeaponSystem.EnemyWeapons;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 using System.Collections;
 
-namespace IceCreamJam.Source.Entities.Enemies {
+namespace IceCreamJam.Entities.Enemies {
     class Doctor : Enemy {
 
         private const float stunCooldown = 0.5f;

@@ -1,7 +1,7 @@
 ﻿using System;
 using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class PlayerInputComponent : Component, IUpdatable {
 		private bool previnputHeld;
 		private bool currInputHeld;

@@ -1,9 +1,9 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Entities;
+﻿using IceCreamJam.Components;
+using IceCreamJam.Entities;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.WeaponSystem.EnemyWeapons {
+namespace IceCreamJam.WeaponSystem.EnemyWeapons {
     class EnemyProjectile : Projectile {
         public EnemyProjectile() {
 

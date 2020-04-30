@@ -1,10 +1,9 @@
-﻿using IceCreamJam.Source.Content;
-using Nez;
+﻿using Nez;
 using Nez.Textures;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class PlayerAnimationComponent : Component {
 		private SetAnimator setAnimator;
 		private DirectionComponent direction;

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Nez;
-using Microsoft.Xna.Framework;
 using Nez.PhysicsShapes;
-using IceCreamJam.Source.Content;
-using Nez.Sprites;
+using System.Collections.Generic;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class ColliderManager : Component {
 		PolygonCollider collider;
 

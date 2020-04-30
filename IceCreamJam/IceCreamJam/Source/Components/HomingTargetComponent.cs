@@ -1,6 +1,6 @@
 ﻿using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
     /// <summary>
     /// Marks an entity as a potential target for homing projectiles
     /// </summary>

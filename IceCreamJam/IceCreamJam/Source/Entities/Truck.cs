@@ -1,12 +1,11 @@
-﻿using IceCreamJam.Source.Components;
-using IceCreamJam.Source.Content;
-using IceCreamJam.Source.WeaponSystem;
-using IceCreamJam.Source.WeaponSystem.Weapons;
+﻿using IceCreamJam.Components;
+using IceCreamJam.WeaponSystem;
+using IceCreamJam.WeaponSystem.Weapons;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 
-namespace IceCreamJam.Source.Entities {
+namespace IceCreamJam.Entities {
 	class Truck : Entity {
 
 		public ArcadeRigidbody rb;

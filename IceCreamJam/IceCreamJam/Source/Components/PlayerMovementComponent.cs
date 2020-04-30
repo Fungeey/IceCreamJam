@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
 	class PlayerMovementComponent : Component, IUpdatable {
 		Collider collider;
 		ArcadeRigidbody rb;

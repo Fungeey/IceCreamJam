@@ -1,4 +1,4 @@
-﻿using IceCreamJam.Source.Scenes;
+﻿using IceCreamJam.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

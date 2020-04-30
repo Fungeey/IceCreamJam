@@ -1,8 +1,8 @@
-﻿using IceCreamJam.Source.Content;
+﻿
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.WeaponSystem.EnemyWeapons {
+namespace IceCreamJam.WeaponSystem.EnemyWeapons {
     class DoctorKnife : EnemyProjectile {
         public DoctorKnife() {
             Name = "DoctorKnife";

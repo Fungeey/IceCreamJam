@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IceCreamJam.Source {
+namespace IceCreamJam {
     class Constants {
 
         public const string TiledLayerBuildings = "Buildings";

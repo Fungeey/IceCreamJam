@@ -1,10 +1,10 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.WeaponSystem.Projectiles;
+﻿
+using IceCreamJam.WeaponSystem.Projectiles;
 using Microsoft.Xna.Framework;
 using Nez;
 using System.Collections;
 
-namespace IceCreamJam.Source.WeaponSystem.Weapons {
+namespace IceCreamJam.WeaponSystem.Weapons {
     class BananaSmallGun : Weapon {
 
         private const float bananaDelay = 0.1f;

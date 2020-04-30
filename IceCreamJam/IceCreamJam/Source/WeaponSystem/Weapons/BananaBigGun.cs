@@ -1,9 +1,9 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.WeaponSystem.Projectiles;
+﻿
+using IceCreamJam.WeaponSystem.Projectiles;
 using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.WeaponSystem.Weapons {
+namespace IceCreamJam.WeaponSystem.Weapons {
     class BananaBigGun : Weapon {
         public BananaBigGun() {
             projectileType = typeof(BananaBig);

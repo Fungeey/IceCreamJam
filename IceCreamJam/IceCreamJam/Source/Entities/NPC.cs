@@ -1,7 +1,7 @@
-﻿using IceCreamJam.Source.Components;
+﻿using IceCreamJam.Components;
 using Nez;
 
-namespace IceCreamJam.Source.Entities {
+namespace IceCreamJam.Entities {
     class NPC : Entity {
         public override void OnAddedToScene() {
             base.OnAddedToScene();

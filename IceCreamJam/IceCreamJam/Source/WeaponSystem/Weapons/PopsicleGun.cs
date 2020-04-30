@@ -1,11 +1,11 @@
-﻿using IceCreamJam.Source.Content;
-using IceCreamJam.Source.Entities;
-using IceCreamJam.Source.WeaponSystem.Projectiles;
+﻿
+using IceCreamJam.Entities;
+using IceCreamJam.WeaponSystem.Projectiles;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Textures;
 
-namespace IceCreamJam.Source.WeaponSystem.Weapons {
+namespace IceCreamJam.WeaponSystem.Weapons {
     class PopsicleGun : Weapon {
 
         private AnimatedEntity shatterFX;

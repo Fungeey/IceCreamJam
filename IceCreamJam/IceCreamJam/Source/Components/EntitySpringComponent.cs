@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nez;
 
-namespace IceCreamJam.Source.Components {
+namespace IceCreamJam.Components {
     /// <summary>
     /// Moves its entity to follow a target
     /// </summary>
