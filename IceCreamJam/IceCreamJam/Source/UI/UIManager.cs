@@ -41,21 +41,22 @@ namespace IceCreamJam.Source.UI {
 
             {
                 var x = 20;
-                var y = 70;
+                var y = 140;
 
                 var texture = Scene.Content.LoadTexture(ContentPaths.AmmoFrame);
-                var ammoFrame = frame.Stage.AddElement(new Image(texture));
-                ammoFrame.SetAlignment(Align.TopLeft);
+                var ammoFrame = frame.Stage.AddElement(new Table().Top().Left());
                 ammoFrame.SetPosition(x, y);
+                var cell = ammoFrame.Add(new Image(texture));
+                cell.Size(64, 384);
 
                 var style = ProgressBarStyle.Create(AmmoBackground, AmmoHighlight);
-                style.KnobBefore.MinWidth = style.KnobAfter.MinWidth = 12;
+                style.KnobBefore.MinWidth = style.KnobAfter.MinWidth = 24;
                 style.KnobBefore.MinHeight = 0;
 
                 ammo = internals.Stage.AddElement(new ProgressBar(0, PlayerWeaponComponent.MaxAmmo, 1, true, style));
-                ammo.SetSize(0, 162);
+                ammo.SetSize(0, 324);
                 ammo.SetOrigin((int)Align.TopLeft);
-                ammo.SetPosition(x + 16, y + 29);
+                ammo.SetPosition(x + 16 * 2, y + 29 * 2);
             }
             {
                 weaponSlots = new List<Image>();
