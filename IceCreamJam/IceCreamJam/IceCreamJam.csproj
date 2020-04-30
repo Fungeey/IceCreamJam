@@ -81,13 +81,13 @@
     <Compile Include="Source\WeaponSystem\EnemyWeapons\DoctorKnife.cs" />
     <Compile Include="Source\WeaponSystem\EnemyWeapons\EnemyProjectile.cs" />
     <Compile Include="Source\WeaponSystem\HomingProjectile.cs" />
+    <Compile Include="Source\WeaponSystem\PlayerWeaponComponent.cs" />
     <Compile Include="Source\WeaponSystem\Projectile.cs" />
     <Compile Include="Source\WeaponSystem\Projectiles\BananaBig.cs" />
     <Compile Include="Source\WeaponSystem\Projectiles\BananaSmall.cs" />
     <Compile Include="Source\WeaponSystem\Projectiles\Popsicle.cs" />
     <Compile Include="Source\WeaponSystem\Projectiles\Scoop.cs" />
     <Compile Include="Source\WeaponSystem\Weapon.cs" />
-    <Compile Include="Source\WeaponSystem\WeaponComponent.cs" />
     <Compile Include="Source\WeaponSystem\Weapons\BananaBigGun.cs" />
     <Compile Include="Source\WeaponSystem\Weapons\BananaSmallGun.cs" />
     <Compile Include="Source\WeaponSystem\Weapons\PopsicleGun.cs" />

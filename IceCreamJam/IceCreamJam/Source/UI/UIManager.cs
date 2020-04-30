@@ -17,6 +17,9 @@ namespace IceCreamJam.Source.UI {
         private PlayerWeaponComponent weapon;
 
         ProgressBar ammo;
+        List<Image> weaponSlots;
+        private List<Sprite> weaponIcons;
+
         public override void OnAddedToScene() {
             base.OnAddedToScene();
 
@@ -25,6 +28,7 @@ namespace IceCreamJam.Source.UI {
             weapon.OnWeaponCycle += UpdateWeaponIcons;
 
             SetUpUI();
+        }
         private void SetUpUI() {
             frame = AddComponent(new UICanvas());
             frame.IsFullScreen = true;
