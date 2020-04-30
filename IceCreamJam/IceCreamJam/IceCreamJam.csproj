@@ -46,6 +46,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Components\SetAnimator.cs" />
     <Compile Include="Source\Components\ColliderManager.cs" />
     <Compile Include="Source\Components\EntitySpringComponent.cs" />
     <Compile Include="Source\Components\HomingTargetComponent.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Source\Components\PlayerAnimationComponent.cs" />
     <Compile Include="Source\Components\DirectionComponent.cs" />
     <Compile Include="Source\Components\PlayerMovementComponent.cs" />
+    <Compile Include="Source\Components\PlayerStateMachine.cs" />
     <Compile Include="Source\Components\ProjectileLifeComponent.cs" />
     <Compile Include="Source\Constants.cs" />
     <Compile Include="Source\Content\ContentManagerExt.cs" />

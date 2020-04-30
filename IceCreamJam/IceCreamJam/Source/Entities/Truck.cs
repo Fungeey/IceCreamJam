@@ -14,21 +14,16 @@ namespace IceCreamJam.Source.Entities {
 
 		public override void OnAddedToScene() {
 			this.Name = "Truck";
-
+			
 			var dir = AddComponent(new DirectionComponent());
 			AddComponent(new PlayerInputComponent());
+			AddComponent(new PlayerStateMachine());
 
-			var animator = AddComponent(new SpriteAnimator());
+			AddComponent(new SpriteAnimator() { RenderLayer = Constants.Layer_Truck, LayerDepth = 1 });
+			AddComponent(new SetAnimator());
 			AddComponent(new PlayerAnimationComponent());
-
-			animator.RenderLayer = Constants.Layer_Truck;
-			animator.LayerDepth = 1;
-
-			//var collider = AddComponent(new BoxCollider());
-			var collider = AddComponent(new PolygonCollider());
-			collider.PhysicsLayer = (int)Constants.PhysicsLayers.Player;
-			collider.CollidesWithLayers = (int)Constants.PhysicsLayers.Buildings;
 			
+			AddComponent(new PolygonCollider() { PhysicsLayer = (int)Constants.PhysicsLayers.Player, CollidesWithLayers = (int)Constants.PhysicsLayers.Buildings });
 			var colliderManager = AddComponent(new ColliderManager(ContentPaths.Content + "truckcollision.json"));
 			dir.OnDirectionChange += i => colliderManager.SetIndex((int)i);
 

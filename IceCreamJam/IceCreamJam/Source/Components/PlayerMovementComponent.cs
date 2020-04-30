@@ -7,6 +7,7 @@ namespace IceCreamJam.Source.Components {
 		ArcadeRigidbody rb;
 		DirectionComponent direction;
 		PlayerInputComponent playerInput;
+		SetAnimator animator;
 
 		/// <summary>
 		/// when accelerating, speed is set to this value if less than the kickstart
@@ -92,6 +93,7 @@ namespace IceCreamJam.Source.Components {
 			rb = Entity.GetComponent<ArcadeRigidbody>();
 			direction = Entity.GetComponent<DirectionComponent>();
 			playerInput = Entity.GetComponent<PlayerInputComponent>();
+			animator = Entity.GetComponent<SetAnimator>();
 
 			playerInput.OnInputStart += this.PlayerInput_OnInputStart;
 			direction.OnDirectionChange += this.Direction_OnDirectionChange;
@@ -113,6 +115,7 @@ namespace IceCreamJam.Source.Components {
 					if (fullDashCooldownTimer == 0 && speed + initialDashBoost >= normalMaxSpeed) {
 						state = State.FullDash;
 						fullDashTimer = fullDashTime;
+						animator.PlaySet("fullDash");
 					} else {
 						state = State.MiniDash;
 						miniDashTimer = miniDashTime;
@@ -123,10 +126,12 @@ namespace IceCreamJam.Source.Components {
 				if (fullDashTimer == 0) {
 					state = State.Normal;
 					fullDashCooldownTimer = fullDashCooldownTime;
+					animator.PlaySet("idle");
 				}
 			} else if (state == State.MiniDash) {
 				if (miniDashTimer == 0) {
 					state = State.Normal;
+					animator.PlaySet("idle");
 				}
 			}
 

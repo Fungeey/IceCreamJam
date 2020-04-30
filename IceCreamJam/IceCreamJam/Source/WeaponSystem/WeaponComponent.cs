@@ -1,14 +1,16 @@
 ﻿using IceCreamJam.Source.Components;
 using Microsoft.Xna.Framework;
 using Nez;
+using Nez.Sprites;
 using System.Collections.Generic;
 
 namespace IceCreamJam.Source.WeaponSystem {
     class WeaponComponent : Component, IUpdatable {
+        public SpriteAnimator animator;
+
         public List<Weapon> weapons;
         private int weaponIndex = 0;
         public Weapon ActiveWeapon => weapons[weaponIndex];
-        public PlayerAnimationComponent animationComponent;
 
         public WeaponComponent(params Weapon[] weapons) : this(new List<Weapon>(weapons)) { }
 
@@ -20,6 +22,8 @@ namespace IceCreamJam.Source.WeaponSystem {
         }
 
         public override void OnAddedToEntity() {
+            this.animator = Entity.GetComponent<SpriteAnimator>();
+
             foreach(Weapon w in weapons) {
                 Entity.Scene.AddEntity(w);
                 w.defaultVisible = false;
@@ -61,11 +65,8 @@ namespace IceCreamJam.Source.WeaponSystem {
         }
 
         private void UpdateWeapons() {
-            if(animationComponent == null)
-                animationComponent = Entity.GetComponent<PlayerAnimationComponent>();
-
             Vector2 weaponOffset;
-            if(animationComponent.Animator.CurrentFrame == 1)
+            if(animator.CurrentFrame == 1)
                 weaponOffset = new Vector2(0, -15);
             else
                 weaponOffset = new Vector2(0, -16);
