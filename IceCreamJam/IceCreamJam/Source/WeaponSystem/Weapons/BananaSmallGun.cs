@@ -11,10 +11,12 @@ namespace IceCreamJam.Source.WeaponSystem.Weapons {
         private Vector2 shootDir;
 
         public BananaSmallGun() {
-            this.projectileType = typeof(BananaSmall);
-            this.name = "BananaSmallGun";
-            this.reloadTime = 0.5f;
-            this.texturePath = ContentPaths.Banana_Base_Small;
+            projectileType = typeof(BananaSmall);
+            Name = "BananaSmallGun";
+            ReloadTime = 0.5f;
+            texturePath = ContentPaths.Banana_Base_Small;
+            ammoCost = 3;
+            iconIndex = 2;
         }
 
         public override void InitializeRenderer() {

@@ -1,39 +1,29 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IceCreamJam.Source.Content;
+using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
+using Nez.Textures;
 using System;
 using System.Collections;
 
 namespace IceCreamJam.Source.WeaponSystem {
     abstract class Weapon : Entity {
 
-        public Type projectileType;
-        public string name;
-        public float reloadTime;
-        public bool canShoot = true;
-        public string texturePath;
-        public Vector2 weaponMountOffset;
+        protected Type projectileType;
+        protected float ReloadTime;
+        private bool canShoot = true;
+        protected string texturePath;
+        protected Vector2 weaponMountOffset;
+        public int ammoCost;
+        public int iconIndex;
 
         public bool defaultVisible = false;
-        private ICoroutine reloadCoroutine;
-        public Component weaponComponent;
-        public RenderableComponent renderer;
+        public PlayerWeaponComponent weaponComponent;
+        protected RenderableComponent renderer;
 
-        public Weapon() {
-            projectileType = typeof(Projectile);
-        }
-
-        public virtual void OnEquipped() {
-            SetVisible(true);
-        }
-        public virtual void OnUnequipped() {
-            SetVisible(false);
-        }
-
-        public void SetVisible(bool visible) {
-            if(renderer != null)
-                renderer.SetEnabled(visible);
-        }
+        public virtual void OnEquipped() => SetVisible(true);
+        public virtual void OnUnequipped() => SetVisible(false);
+        public void SetVisible(bool visible) => renderer?.SetEnabled(visible);
 
         public override void OnAddedToScene() {
             base.OnAddedToScene();
@@ -43,8 +33,7 @@ namespace IceCreamJam.Source.WeaponSystem {
         }
 
         public virtual void InitializeRenderer() {
-            var texture = Scene.Content.LoadTexture(texturePath);
-            this.renderer = new SpriteRenderer(texture) {
+            renderer = new SpriteRenderer(Scene.Content.LoadTexture(texturePath)) {
                 RenderLayer = Constants.Layer_WeaponBase,
                 LayerDepth = 1f
             };
@@ -53,9 +42,10 @@ namespace IceCreamJam.Source.WeaponSystem {
         }
 
         public virtual void Shoot() {
-            if(canShoot) {
+            bool sufficientAmmo = weaponComponent.ammo - ammoCost >= 0;
+            if(canShoot && sufficientAmmo) {
                 canShoot = false;
-                reloadCoroutine = Core.StartCoroutine(ReloadTimer());
+                Core.StartCoroutine(ReloadTimer());
 
                 // Instantiate a projectile using the weapon's projectile type
                 var p = InstantiateProjectile(this.Position);
@@ -68,19 +58,11 @@ namespace IceCreamJam.Source.WeaponSystem {
             }
         }
 
-        public virtual void OnShoot() { }
-
+        public virtual void OnShoot() => weaponComponent.OnShoot();
         public abstract Projectile InstantiateProjectile(Vector2 pos);
-        //    var scene = weaponComponent.Entity.Scene;
-        //    var dir = Vector2.Normalize(scene.Camera.MouseToWorldPoint() - (weaponComponent.Entity.Position + weaponMountOffset));
-        //
-        //    var p = (Projectile)Activator.CreateInstance(projectileType);
-        //    p.Initialize(dir, pos);
-        //    return p;
-        //}
 
         IEnumerator ReloadTimer() {
-            yield return Coroutine.WaitForSeconds(reloadTime);
+            yield return Coroutine.WaitForSeconds(ReloadTime);
             canShoot = true;
         }
     }

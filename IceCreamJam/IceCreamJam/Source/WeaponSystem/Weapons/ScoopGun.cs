@@ -16,23 +16,25 @@ namespace IceCreamJam.Source.WeaponSystem.Weapons {
         private AnimatedEntity shootFX;
 
         public ScoopGun() {
-            this.projectileType = typeof(Scoop);
-            this.name = "ScoopGun";
-            this.reloadTime = 0.1f;
-            this.texturePath = ContentPaths.Scoop_Base;
-            this.weaponMountOffset = new Vector2(0, -5);
+            projectileType = typeof(Scoop);
+            Name = "ScoopGun";
+            ReloadTime = 0.1f;
+            texturePath = ContentPaths.Scoop_Base;
+            weaponMountOffset = new Vector2(0, -5);
+            ammoCost = 1;
+            iconIndex = 0;
         }
 
         public override void OnAddedToScene() {
             base.OnAddedToScene();
             var coneTexture = Scene.Content.LoadTexture(ContentPaths.Scoop_Cone);
             coneDecal = Scene.AddEntity(new SpriteEntity(coneTexture, Constants.Layer_WeaponOver, 0.5f));
-            this.coneSpring = coneDecal.AddComponent(new EntitySpringComponent(this, weaponMountOffset, 5));
-            coneDecal.ToggleVisible(this.defaultVisible);
+            coneDecal.ToggleVisible(defaultVisible);
+            coneSpring = coneDecal.AddComponent(new EntitySpringComponent(this, weaponMountOffset, 5));
 
             shootFX = Scene.AddEntity(new AnimatedEntity());
             AddFXAnimation();
-            shootFX.ToggleVisible(this.defaultVisible);
+            shootFX.ToggleVisible(defaultVisible);
         }
 
         private void AddFXAnimation() {
@@ -71,17 +73,16 @@ namespace IceCreamJam.Source.WeaponSystem.Weapons {
 
             type = Scoop.GetNext(type);
             var s = Pool<Scoop>.Obtain();
-            s.Initialize(dir, pos + this.weaponMountOffset + dir * 4, type);
+            s.Initialize(dir, pos + weaponMountOffset + dir * 4, type);
             s.truckVelocity = (weaponComponent.Entity as Truck).rb.Velocity * Time.DeltaTime;
 
             // Shock the cone
             coneSpring.Shock(-dir * 3);
-
             return s;
         }
 
-        public override void Shoot() {
-            base.Shoot();
+        public override void OnShoot() {
+            base.OnShoot();
 
             // Trigger shoot Fx
             shootFX.animator.Play(Enum.GetName(typeof(Scoop.ScoopType), type), Nez.Sprites.SpriteAnimator.LoopMode.ClampForever);

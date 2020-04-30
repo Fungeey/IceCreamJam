@@ -76,6 +76,7 @@
     <Compile Include="Source\Tiled\TiledMap.cs" />
     <Compile Include="Source\Tiled\TilemapLoader.cs" />
     <Compile Include="Source\UI\Crosshair.cs" />
+    <Compile Include="Source\UI\UIManager.cs" />
     <Compile Include="Source\Utility.cs" />
     <Compile Include="Source\WeaponSystem\EnemyWeapons\DoctorKnife.cs" />
     <Compile Include="Source\WeaponSystem\EnemyWeapons\EnemyProjectile.cs" />
@@ -214,6 +215,9 @@
     <Content Include="Content\Sprites\Truck\truckdash3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\UI\AmmoFrame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\UI\Crosshair\Crosshair_Diagonal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -221,6 +225,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\UI\Crosshair\Crosshair_Transition.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\UI\WeaponIcons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Weapons\Banana\Banana_Base_Big.png">

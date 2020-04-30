@@ -45,7 +45,12 @@
         public const string Crosshair = UI + "Crosshair/";
         public const string Crosshair_Diagonal = Crosshair + "Crosshair_Diagonal.png";
         public const string Crosshair_Vertical = Crosshair + "Crosshair_Vertical.png";
-        public const string Crosshair_Transition = Crosshair + "Crosshair_Transition.png"; 
+        public const string Crosshair_Transition = Crosshair + "Crosshair_Transition.png";
+
+        public const string HealthGUIEmpty = UI + "UI Empty.png";
+        public const string HealthGUIFull = UI + "UI Full.png";
+        public const string AmmoFrame = UI + "AmmoFrame.png";
+        public const string WeaponIcons = UI + "WeaponIcons.png";
         #endregion
 
         #region Maps

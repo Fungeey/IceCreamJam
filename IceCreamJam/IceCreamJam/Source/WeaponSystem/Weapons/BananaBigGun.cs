@@ -5,17 +5,18 @@ using Nez;
 
 namespace IceCreamJam.Source.WeaponSystem.Weapons {
     class BananaBigGun : Weapon {
-
         public BananaBigGun() {
-            this.projectileType = typeof(BananaBig);
-            this.name = "BananaBigGun";
-            this.reloadTime = 0.5f;
-            this.texturePath = ContentPaths.Banana_Base_Big;
+            projectileType = typeof(BananaBig);
+            Name = "BananaBigGun";
+            ReloadTime = 0.5f;
+            texturePath = ContentPaths.Banana_Base_Big;
+            ammoCost = 5;
+            iconIndex = 5;
         }
 
         public override void InitializeRenderer() {
             base.InitializeRenderer();
-            this.renderer.LocalOffset = new Vector2(0, -5);
+            renderer.LocalOffset = new Vector2(0, -5);
         }
 
         public override Projectile InstantiateProjectile(Vector2 pos) {
