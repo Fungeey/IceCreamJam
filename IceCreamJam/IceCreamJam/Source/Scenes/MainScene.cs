@@ -12,7 +12,7 @@ namespace IceCreamJam.Scenes {
     class MainScene : Scene {
 
         TilemapLoader loader;
-        public Entity truck;
+        public Truck truck;
         public UIManager UICanvas;
 
         public override void Initialize() {

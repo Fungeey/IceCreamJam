@@ -4,15 +4,21 @@ using IceCreamJam.WeaponSystem.Weapons;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
+using System;
 
 namespace IceCreamJam.Entities {
 	class Truck : Entity {
+		public const float MaxHealth = 50;
+		private float health;
+
+		public event Action<float> OnDamage;
+
 
 		public ArcadeRigidbody rb;
-		private float health = 50;
 
 		public override void OnAddedToScene() {
-			this.Name = "Truck";
+			health = MaxHealth;
+			Name = "Truck";
 			
 			var dir = AddComponent(new DirectionComponent());
 			AddComponent(new PlayerInputComponent());
@@ -41,7 +47,10 @@ namespace IceCreamJam.Entities {
 		}
 
 		public void Damage(float damage) {
-			this.health -= damage;
+			health -= damage;
+			Debug.Log(health);
+			OnDamage?.Invoke(health);
+
 			if(health <= 0)
 				Debug.Log("Dead!");
 		}

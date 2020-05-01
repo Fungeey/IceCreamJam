@@ -74,9 +74,9 @@ namespace IceCreamJam.Components {
 		}
 
 		[Inspectable]
-		private float speed = 0f;
+		public float Speed { get; private set; } = 0f;
 		[Inspectable]
-		private float maxSpeed = 200f;
+		public const float maxSpeed = 200f;
 		[Inspectable]
 		private float turnTimer = 0;
 
@@ -112,14 +112,14 @@ namespace IceCreamJam.Components {
 		public void Update() {
 			if (state == State.Normal) {
 				if (InputManager.dash.IsDown) {
-					if (fullDashCooldownTimer == 0 && speed + initialDashBoost >= normalMaxSpeed) {
+					if (fullDashCooldownTimer == 0 && Speed + initialDashBoost >= normalMaxSpeed) {
 						state = State.FullDash;
 						fullDashTimer = fullDashTime;
 						animator.PlaySet("fullDash");
 					} else {
 						state = State.MiniDash;
 						miniDashTimer = miniDashTime;
-						miniDashInitialSpeed = speed;
+						miniDashInitialSpeed = Speed;
 					}
 				}
 			} else if (state == State.FullDash) {
@@ -141,26 +141,28 @@ namespace IceCreamJam.Components {
 					int offset = CalculateRotationOffset(CurrentHeading.Difference(targetHeading));
 					CurrentHeading = CurrentHeading.Rotate(offset);
 				} else turnTimer = 0;
-				speed = CalculateCurrentSpeed(this.speed);
+				Speed = CalculateCurrentSpeed(this.Speed);
 				fullDashCooldownTimer = Mathf.Approach(fullDashCooldownTimer, 0, Time.DeltaTime);
 			} else if (state == State.FullDash) {
-				speed = fullDashMaxSpeed;
+				Speed = fullDashMaxSpeed;
 				fullDashTimer = Mathf.Approach(fullDashTimer, 0, Time.DeltaTime);
 			} else if (state == State.MiniDash) {
-				speed = Mathf.Lerp(miniDashInitialSpeed + initialDashBoost, miniDashInitialSpeed, 1 - miniDashTimer / miniDashTime);
+				Speed = Mathf.Lerp(miniDashInitialSpeed + initialDashBoost, miniDashInitialSpeed, 1 - miniDashTimer / miniDashTime);
 				miniDashTimer = Mathf.Approach(miniDashTimer, 0, Time.DeltaTime);
 			}
 
-			Vector2 currentVelocity = currentDirectionVector * speed;
+			Vector2 currentVelocity = currentDirectionVector * Speed;
 			rb.Velocity = currentVelocity;
 
 			// TODO: remove hack to instantly stop movement when rammed into a building
 			Vector2 movement = currentVelocity * Time.DeltaTime;
 			if (collider.CollidesWithAny(ref movement, out CollisionResult result)) {
 				if (result.Collider.PhysicsLayer.IsFlagSet((int)Constants.PhysicsLayers.Buildings)) {
-					speed = 0;
+					Speed = 0;
 				}
 			}
+
+
 		}
 
 		private float CalculateCurrentSpeed(float speed) {
@@ -175,14 +177,14 @@ namespace IceCreamJam.Components {
 		}
 
 		private int CalculateRotationOffset(int difference) {
-			if (speed == 0) {
+			if (Speed == 0) {
 				return difference;
 			} else {
 				if (turnTimer >= turnTime) {
 					turnTimer -= turnTime;
 					return System.Math.Sign(difference);
 				} else {
-					turnTimer += Time.DeltaTime + (Time.DeltaTime * speed / maxSpeed);
+					turnTimer += Time.DeltaTime + (Time.DeltaTime * Speed / maxSpeed);
 					return 0;
 				}
 			}

@@ -70,8 +70,7 @@ namespace IceCreamJam.WeaponSystem {
         }
 
         public void OnShoot() {
-            ui.UpdateAmmo(ammo -= ActiveWeapon.ammoCost);
-            OnWeaponShoot?.Invoke(ammo);
+            OnWeaponShoot?.Invoke(ammo -= ActiveWeapon.ammoCost);
         }
 
         public void Update() {
