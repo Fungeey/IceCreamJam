@@ -1,4 +1,5 @@
 ﻿using IceCreamJam.Components;
+using IceCreamJam.Effects;
 using IceCreamJam.Entities;
 using IceCreamJam.Scenes;
 using IceCreamJam.WeaponSystem;
@@ -7,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Nez;
 using Nez.Textures;
 using Nez.UI;
-using System;
 using System.Collections.Generic;
 
 namespace IceCreamJam.UI {
@@ -63,7 +63,7 @@ namespace IceCreamJam.UI {
 				healthFrame.SetSize(508, 58);
 
 				ShadedImage AddBar(string path, Vector2 pos) {
-					var effect = Scene.Content.LoadEffect(ContentPaths.MaskEffect);
+					var effect = Scene.Content.LoadEffect<UIMaskEffect>(ContentPaths.MaskEffect);
 					var texture = Scene.Content.LoadTexture(path);
 					var image = new ShadedImage(effect, texture);
 					image.SetPosition(pos.X, pos.Y);
@@ -142,11 +142,11 @@ namespace IceCreamJam.UI {
 		}
 
 		private void UpdateHealth(float value) {
-			healthBar.effect.Parameters["Progress"].SetValue(1 - Mathf.Clamp(value / Truck.MaxHealth, 0, 1));
+			(healthBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value / Truck.MaxHealth, 0, 1);
 		}
 
 		private void UpdateSpeed(float value) {
-			speedBar.effect.Parameters["Progress"].SetValue(1 - Mathf.Clamp(value, 0, 1));
+			(speedBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value, 0, 1);
 
 			if (previousSpeedValue == 1 && value < 1)
 				speedBar.SetDrawable(new SpriteDrawable(speedRegular));
