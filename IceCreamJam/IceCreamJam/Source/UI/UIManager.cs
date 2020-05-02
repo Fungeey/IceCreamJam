@@ -1,4 +1,5 @@
 ﻿using IceCreamJam.Components;
+using IceCreamJam.Effects;
 using IceCreamJam.Entities;
 using IceCreamJam.Scenes;
 using IceCreamJam.WeaponSystem;
@@ -10,149 +11,149 @@ using Nez.UI;
 using System.Collections.Generic;
 
 namespace IceCreamJam.UI {
-    class UIManager : Entity {
-        UICanvas frame, internals;
+	class UIManager : Entity {
+		UICanvas frame, internals;
 
-        private static readonly Color AmmoBackground = new Color(99, 107, 145);
-        private static readonly Color AmmoHighlight = new Color(89, 197, 240);
+		private static readonly Color AmmoBackground = new Color(99, 107, 145);
+		private static readonly Color AmmoHighlight = new Color(89, 197, 240);
 
-        private Truck truck;
-        private PlayerWeaponComponent playerWeapon;
-        private PlayerMovementComponent playerMove;
+		private Truck truck;
+		private PlayerWeaponComponent playerWeapon;
+		private PlayerMovementComponent playerMove;
 
-        private ShadedImage healthBar, dashBar, speedBar;
-        private Texture2D speedRegular, speedMaxed;
-        private float previousSpeedValue;
+		private ShadedImage healthBar, dashBar, speedBar;
+		private Texture2D speedRegular, speedMaxed;
+		private float previousSpeedValue;
 
-        private ProgressBar ammo;
-        private List<Image> weaponSlots;
-        private List<Sprite> weaponIcons;
+		private ProgressBar ammo;
+		private List<Image> weaponSlots;
+		private List<Sprite> weaponIcons;
 
-        public override void OnAddedToScene() {
-            base.OnAddedToScene();
+		public override void OnAddedToScene() {
+			base.OnAddedToScene();
 
-            var mainScene = (Scene as MainScene);
-            truck = mainScene.truck;
-            playerWeapon = truck.GetComponent<PlayerWeaponComponent>();
-            playerWeapon.OnWeaponShoot += a => UpdateAmmo(a);
-            playerWeapon.OnWeaponCycle += UpdateWeaponIcons;
+			var mainScene = (Scene as MainScene);
+			truck = mainScene.truck;
+			playerWeapon = truck.GetComponent<PlayerWeaponComponent>();
+			playerWeapon.OnWeaponShoot += a => UpdateAmmo(a);
+			playerWeapon.OnWeaponCycle += UpdateWeaponIcons;
 
-            playerMove = truck.GetComponent<PlayerMovementComponent>();
+			playerMove = truck.GetComponent<PlayerMovementComponent>();
 
-            truck.OnDamage += (h) => UpdateHealth(h);
+			truck.OnDamage += (h) => UpdateHealth(h);
 
-            SetUpUI();
-        }
-        private void SetUpUI() {
-            frame = AddComponent(new UICanvas());
-            frame.IsFullScreen = true;
-            frame.RenderLayer = -1;
+			SetUpUI();
+		}
+		private void SetUpUI() {
+			frame = AddComponent(new UICanvas());
+			frame.IsFullScreen = true;
+			frame.RenderLayer = -1;
+			frame.LayerDepth = 0.1f;
 
-            internals = AddComponent(new UICanvas());
-            internals.IsFullScreen = true;
-            internals.RenderLayer = -1;
-            internals.LayerDepth = 0.5f;
+			internals = AddComponent(new UICanvas());
+			internals.IsFullScreen = true;
+			internals.RenderLayer = -1;
 
-            {
-                int x = 20, y = 20;
+			{
+				int x = 20, y = 20;
 
-                var frameTexture = Scene.Content.LoadTexture(ContentPaths.HealthBarFrame);
-                var healthFrame = frame.Stage.AddElement(new Image(frameTexture));
-                healthFrame.SetPosition(x, y);
-                healthFrame.SetSize(508, 58);
-                
-                ShadedImage AddBar(string path, Vector2 pos) {
-                    var effect = Scene.Content.LoadEffect(ContentPaths.MaskEffect);
-                    var texture = Scene.Content.LoadTexture(path);
-                    var image = new ShadedImage(effect, texture);
-                    image.SetPosition(pos.X, pos.Y);
-                    image.SetSize(texture.Width * 2, texture.Height * 2);
-                    internals.Stage.AddElement(image);
-                    return image;
-                }
+				var frameTexture = Scene.Content.LoadTexture(ContentPaths.HealthBarFrame);
+				var healthFrame = frame.Stage.AddElement(new Image(frameTexture));
+				healthFrame.SetPosition(x, y);
+				healthFrame.SetSize(508, 58);
 
-                speedRegular = Scene.Content.LoadTexture(ContentPaths.SpeedInternal);
-                speedMaxed = Scene.Content.LoadTexture(ContentPaths.SpeedInternalMaxed);
+				ShadedImage AddBar(string path, Vector2 pos) {
+					var effect = Scene.Content.LoadEffect<UIMaskEffect>(ContentPaths.MaskEffect);
+					var texture = Scene.Content.LoadTexture(path);
+					var image = new ShadedImage(effect, texture);
+					image.SetPosition(pos.X, pos.Y);
+					image.SetSize(texture.Width * 2, texture.Height * 2);
+					internals.Stage.AddElement(image);
+					return image;
+				}
 
-                healthBar = AddBar(ContentPaths.HealthInternal, new Vector2(x + 50, y + 8));
-                dashBar = AddBar(ContentPaths.DashInternal, new Vector2(x + 80, y + 34));
-                speedBar = AddBar(ContentPaths.SpeedInternal, new Vector2(x + 342, y + 34));
+				speedRegular = Scene.Content.LoadTexture(ContentPaths.SpeedInternal);
+				speedMaxed = Scene.Content.LoadTexture(ContentPaths.SpeedInternalMaxed);
 
-            }
-            {
-                var x = 20;
-                var y = 140;
+				healthBar = AddBar(ContentPaths.HealthInternal, new Vector2(x + 50, y + 8));
+				dashBar = AddBar(ContentPaths.DashInternal, new Vector2(x + 80, y + 34));
+				speedBar = AddBar(ContentPaths.SpeedInternal, new Vector2(x + 342, y + 34));
 
-                var texture = Scene.Content.LoadTexture(ContentPaths.AmmoFrame);
-                var ammoFrame = frame.Stage.AddElement(new Table().Top().Left());
-                ammoFrame.SetPosition(x, y);
-                var cell = ammoFrame.Add(new Image(texture));
-                cell.Size(64, 384);
+			}
+			{
+				var x = 20;
+				var y = 140;
 
-                var style = ProgressBarStyle.Create(AmmoBackground, AmmoHighlight);
-                style.KnobBefore.MinWidth = style.KnobAfter.MinWidth = 24;
-                style.KnobBefore.MinHeight = 0;
+				var texture = Scene.Content.LoadTexture(ContentPaths.AmmoFrame);
+				var ammoFrame = frame.Stage.AddElement(new Table().Top().Left());
+				ammoFrame.SetPosition(x, y);
+				var cell = ammoFrame.Add(new Image(texture));
+				cell.Size(64, 384);
 
-                ammo = internals.Stage.AddElement(new ProgressBar(0, PlayerWeaponComponent.MaxAmmo, 1, true, style));
-                ammo.SetSize(0, 324);
-                ammo.SetOrigin((int)Align.TopLeft);
-                ammo.SetPosition(x + 16 * 2, y + 29 * 2);
-            }
-            {
-                weaponSlots = new List<Image>();
+				var style = ProgressBarStyle.Create(Color.Transparent, AmmoHighlight);
+				style.KnobBefore.MinWidth = style.KnobAfter.MinWidth = 24;
+				style.KnobBefore.MinHeight = 0;
 
-                var table = internals.Stage.AddElement(new Table());
-                table.SetOrigin((int)VerticalAlign.Bottom);
-                table.SetPosition(internals.Stage.GetWidth() / 2, internals.Stage.GetHeight() - 48 - 20);
+				ammo = internals.Stage.AddElement(new ProgressBar(0, PlayerWeaponComponent.MaxAmmo, 1, true, style));
+				ammo.SetSize(0, 324);
+				ammo.SetOrigin((int)Align.TopLeft);
+				ammo.SetPosition(x + 16 * 2, y + 29 * 2);
+			}
+			{
+				weaponSlots = new List<Image>();
 
-                var iconTextures = Scene.Content.LoadTexture(ContentPaths.WeaponIcons);
-                weaponIcons = Sprite.SpritesFromAtlas(iconTextures, 32, 32);
+				var table = internals.Stage.AddElement(new Table());
+				table.SetOrigin((int)VerticalAlign.Bottom);
+				table.SetPosition(internals.Stage.GetWidth() / 2, internals.Stage.GetHeight() - 48 - 20);
 
-                void addIcon(int size) {
-                    var image = new Image(Scene.Content.LoadTexture(ContentPaths.EmptySprite));
-                    table.Add(image).Size(size).Pad(5);
-                    weaponSlots.Add(image);
-                }
+				var iconTextures = Scene.Content.LoadTexture(ContentPaths.WeaponIcons);
+				weaponIcons = Sprite.SpritesFromAtlas(iconTextures, 32, 32);
 
-                addIcon(64);
-                addIcon(96);
-                addIcon(64);
+				void addIcon(int size) {
+					var image = new Image(Scene.Content.LoadTexture(ContentPaths.EmptySprite));
+					table.Add(image).Size(size).Pad(5);
+					weaponSlots.Add(image);
+				}
 
-                UpdateWeaponIcons();
-            }
-        }
+				addIcon(64);
+				addIcon(96);
+				addIcon(64);
 
-        public override void Update() {
-            base.Update();
+				UpdateWeaponIcons();
+			}
+		}
 
-            Position = truck.Position;
-            if(playerMove != null)
-                UpdateSpeed(playerMove.Speed / PlayerMovementComponent.maxSpeed);
-        }
+		public override void Update() {
+			base.Update();
 
-        private void UpdateWeaponIcons() {
-            weaponSlots[0].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.NextWeapon.iconIndex]));
-            weaponSlots[1].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.ActiveWeapon.iconIndex]));
-            weaponSlots[2].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.PreviousWeapon.iconIndex]));
-        }
+			Position = truck.Position;
+			if (playerMove != null)
+				UpdateSpeed(playerMove.Speed / PlayerMovementComponent.maxSpeed);
+		}
 
-        private void UpdateAmmo(float value) {
-            ammo.SetValue(PlayerWeaponComponent.MaxAmmo - value);
-        }
+		private void UpdateWeaponIcons() {
+			weaponSlots[0].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.NextWeapon.iconIndex]));
+			weaponSlots[1].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.ActiveWeapon.iconIndex]));
+			weaponSlots[2].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.PreviousWeapon.iconIndex]));
+		}
 
-        private void UpdateHealth(float value) {
-            healthBar.effect.Parameters["Progress"].SetValue(1 - Mathf.Clamp(value/Truck.MaxHealth, 0, 1));
-        }
+		private void UpdateAmmo(float value) {
+			ammo.SetValue(PlayerWeaponComponent.MaxAmmo - value);
+		}
 
-        private void UpdateSpeed(float value) {
-            speedBar.effect.Parameters["Progress"].SetValue(1 - Mathf.Clamp(value, 0, 1));
+		private void UpdateHealth(float value) {
+			(healthBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value / Truck.MaxHealth, 0, 1);
+		}
 
-            if(previousSpeedValue == 1 && value < 1) 
-                speedBar.SetDrawable(new SpriteDrawable(speedRegular));
-            else if(previousSpeedValue < 1 && value == 1)
-                speedBar.SetDrawable(new SpriteDrawable(speedMaxed));
+		private void UpdateSpeed(float value) {
+			(speedBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value, 0, 1);
 
-            previousSpeedValue = value;
-        }
-    }
+			if (previousSpeedValue == 1 && value < 1)
+				speedBar.SetDrawable(new SpriteDrawable(speedRegular));
+			else if (previousSpeedValue < 1 && value == 1)
+				speedBar.SetDrawable(new SpriteDrawable(speedMaxed));
+
+			previousSpeedValue = value;
+		}
+	}
 }

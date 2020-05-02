@@ -50,6 +50,7 @@
     <Compile Include="Source\RoadSystem\MapNodeGenerator.cs" />
     <Compile Include="Source\RoadSystem\Node.cs" />
     <Compile Include="Source\RoadSystem\RoadSystemComponent.cs" />
+    <Compile Include="Source\Effects\UIMaskEffect.cs" />
     <Compile Include="Source\UI\ShadedImage.cs" />
     <Compile Include="Source\Utils\Direction8.cs" />
     <Compile Include="Source\Components\SetAnimator.cs" />
@@ -184,9 +185,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Shaders\Pixellate.fx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Shaders\UIMask.fx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
