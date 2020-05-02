@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nez;
 using System;
 
 namespace IceCreamJam {
@@ -30,7 +31,14 @@ namespace IceCreamJam {
 			}
 		}
 
-		public static Direction8 Rotate(this Direction8 d, int increments) {
+		public static Direction8 FromVector2(Vector2 vec) {
+			var rad = Mathf.Atan2(vec.Y, vec.X);
+			var dir = (Utility.Mod((int)(rad * Mathf.Rad2Deg), 360) / 45);
+			return (Direction8)(dir % 8);
+		}
+
+
+		public static Direction8 RotateClockwise(this Direction8 d, int increments) {
 			return (Direction8)Utility.Mod((int)d + increments, 8);
 		}
 

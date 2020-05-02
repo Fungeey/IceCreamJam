@@ -4,7 +4,7 @@ using Nez.Tiled;
 namespace IceCreamJam.Tiled {
     class TiledMap : Entity {
 
-        TmxMap map;
+        public TmxMap map;
 
         public TiledMap(TmxMap map) {
             this.map = map;

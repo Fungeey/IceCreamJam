@@ -2,6 +2,8 @@
 
 using IceCreamJam.Entities;
 using IceCreamJam.Entities.Enemies;
+using IceCreamJam.Rendering;
+using IceCreamJam.RoadSystem;
 using IceCreamJam.Systems;
 using IceCreamJam.Tiled;
 using IceCreamJam.UI;
@@ -12,16 +14,22 @@ namespace IceCreamJam.Scenes {
     class MainScene : Scene {
 
         TilemapLoader loader;
+        RoadSystemComponent roadSystem;
         public Truck truck;
         public UIManager UICanvas;
 
         public override void Initialize() {
             loader = AddSceneComponent(new TilemapLoader());
+            roadSystem = AddSceneComponent(new RoadSystemComponent());
+
+
             SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAll);
             AddRenderer(new DefaultRenderer());
 
             AddEntityProcessor(new HomingProjectileSystem(new Matcher().All(typeof(HomingTargetComponent))));
             AddEntityProcessor(new CivilianSystem(new Matcher().All(typeof(CivilianComponent))));
+
+            AddRenderer(new RoadRenderer());
         }
 
         public override void OnStart() {
@@ -46,9 +54,9 @@ namespace IceCreamJam.Scenes {
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.Test1);
-            Camera.ZoomIn(0.5f);
+            loader.Load(ContentPaths.RoadTest);
+            Camera.ZoomOut(0.5f);
             Camera.AddComponent(new FollowCamera(truck));
-        }
+        }        
     }
 }

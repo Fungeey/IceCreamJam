@@ -3,8 +3,16 @@
 namespace IceCreamJam {
     class Constants {
 
-        public const string TiledLayerBuildings = "Buildings";
+
+        #region Tiled
+        public const string TiledLayerBackground = "Background";
+        public const int TiledCellSize = 32;
         public const string TiledPropertyID = "TileID";
+        public const string TiledIDSidewalk = "Sidewalk";
+        public const string TiledIDRoad = "Road";
+        public const string TiledIDGrass = "Grass";
+        public const string TiledIDIntersection = "Intersection";
+        #endregion
 
         public const int GlobalFPS = 8;
 
@@ -29,5 +37,9 @@ namespace IceCreamJam {
         public const int Layer_Buildings = 6;
 
         public const int Layer_FX = 8;
+
+        public const float TwoPi = (float)Math.PI * 2;
+        public const float HalfPi = (float)Math.PI / 2;
+        public const float QuarterPi = (float)Math.PI / 4;
     }
 }

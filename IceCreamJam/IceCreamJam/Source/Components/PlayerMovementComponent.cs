@@ -139,7 +139,7 @@ namespace IceCreamJam.Components {
 				// when facing different direction from input, attempt to turn
 				if (playerInput.InputHeld && CurrentHeading != targetHeading) {
 					int offset = CalculateRotationOffset(CurrentHeading.Difference(targetHeading));
-					CurrentHeading = CurrentHeading.Rotate(offset);
+					CurrentHeading = CurrentHeading.RotateClockwise(offset);
 				} else turnTimer = 0;
 				Speed = CalculateCurrentSpeed(this.Speed);
 				fullDashCooldownTimer = Mathf.Approach(fullDashCooldownTimer, 0, Time.DeltaTime);
