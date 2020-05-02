@@ -85,7 +85,6 @@
     <Compile Include="Source\UI\Crosshair.cs" />
     <Compile Include="Source\UI\UIManager.cs" />
     <Compile Include="Source\Utils\Input\ScrollAxis.cs" />
-    <Compile Include="Source\Utils\MonogameShaderCompiler.cs" />
     <Compile Include="Source\Utils\Utility.cs" />
     <Compile Include="Source\WeaponSystem\EnemyWeapons\DoctorKnife.cs" />
     <Compile Include="Source\WeaponSystem\EnemyWeapons\EnemyProjectile.cs" />
