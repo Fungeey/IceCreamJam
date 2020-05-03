@@ -5,6 +5,7 @@ using IceCreamJam.Scenes;
 using IceCreamJam.WeaponSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Nez;
 using Nez.Textures;
 using Nez.UI;
@@ -125,6 +126,11 @@ namespace IceCreamJam.UI {
 
 		public override void Update() {
 			base.Update();
+
+			if(Input.IsKeyPressed(Keys.D1)) {
+				frame.SetEnabled(!frame.Enabled);
+				internals.SetEnabled(!internals.Enabled);
+			}
 
 			Position = truck.Position;
 			if (playerMove != null)
