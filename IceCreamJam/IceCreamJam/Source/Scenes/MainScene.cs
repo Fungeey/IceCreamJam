@@ -9,12 +9,13 @@ using IceCreamJam.Tiled;
 using IceCreamJam.UI;
 using Microsoft.Xna.Framework;
 using Nez;
+using System;
 
 namespace IceCreamJam.Scenes {
     class MainScene : Scene {
 
         TilemapLoader loader;
-        RoadSystemComponent roadSystem;
+        public RoadSystemComponent roadSystem;
         public Truck truck;
         public UIManager UICanvas;
 
@@ -41,10 +42,14 @@ namespace IceCreamJam.Scenes {
 
             for(int i = 0; i < 0; i++) {
                 var d = Pool<Doctor>.Obtain();
-                d.Initialize(new Vector2(Random.NextInt(Screen.Width), Random.NextInt(Screen.Height)));
+                d.Initialize(new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)));
 
                 if(d.isNewEnemy)
                     AddEntity(d);
+            }
+
+            for(int i = 0; i < 10; i++) {
+                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
             }
 
             //AddEntity(new Ambulance() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2 + 200) });
@@ -54,8 +59,8 @@ namespace IceCreamJam.Scenes {
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.RoadTest);
-            Camera.ZoomIn(0.5f);
+            loader.Load(ContentPaths.Test1);
+            Camera.ZoomOut(0.5f);
             Camera.AddComponent(new FollowCamera(truck));
         }        
     }

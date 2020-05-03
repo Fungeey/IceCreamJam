@@ -46,11 +46,15 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Components\VehicleMoveComponent.cs" />
+    <Compile Include="Source\Entities\TestVehicle.cs" />
     <Compile Include="Source\Rendering\RoadRenderer.cs" />
     <Compile Include="Source\RoadSystem\MapNodeGenerator.cs" />
     <Compile Include="Source\RoadSystem\Node.cs" />
     <Compile Include="Source\RoadSystem\RoadSystemComponent.cs" />
     <Compile Include="Source\Effects\UIMaskEffect.cs" />
+    <Compile Include="Source\Entities\Vehicle.cs" />
+    <Compile Include="Source\RoadSystem\WeightedRoadGraph.cs" />
     <Compile Include="Source\UI\ShadedImage.cs" />
     <Compile Include="Source\Utils\Direction8.cs" />
     <Compile Include="Source\Components\SetAnimator.cs" />
