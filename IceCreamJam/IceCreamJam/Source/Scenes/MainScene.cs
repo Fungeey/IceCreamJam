@@ -20,6 +20,8 @@ namespace IceCreamJam.Scenes {
         public UIManager UICanvas;
 
         public override void Initialize() {
+            Physics.RaycastsStartInColliders = false;
+
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
 
@@ -48,7 +50,7 @@ namespace IceCreamJam.Scenes {
                     AddEntity(d);
             }
 
-            for(int i = 0; i < 10; i++) {
+            for(int i = 0; i < 5; i++) {
                 AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
             }
 

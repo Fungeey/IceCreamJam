@@ -9,7 +9,7 @@ namespace IceCreamJam.Entities {
 
             var texture = Scene.Content.LoadTexture(ContentPaths.BoxSprite);
             AddComponent(new SpriteRenderer(texture));
-            AddComponent(new CircleCollider(8));
+            AddComponent(new BoxCollider(32, 32));
         }
     }
 }

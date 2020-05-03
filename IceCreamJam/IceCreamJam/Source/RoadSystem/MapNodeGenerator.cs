@@ -26,7 +26,7 @@ namespace IceCreamJam.RoadSystem {
         private static List<Node> PruneNodes(List<Node> nodes, TmxLayer layer) {
             foreach(Node a in nodes) {
                 foreach(Node b in nodes) {
-                    if(a.position == b.position || a.IsConnectedTo(b))
+                    if(a.tilePosition == b.tilePosition || a.IsConnectedTo(b))
                         continue;
 
                     if(IsConnected(a, b, layer)) {

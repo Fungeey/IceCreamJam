@@ -31,6 +31,14 @@ namespace IceCreamJam {
 			}
 		}
 
+		public static Vector2 ToNormalizedVector2(this Direction8 d) {
+			return d.ToVector2().Normalized();
+		}
+
+		public static Vector2 ToNormalizedVector2(this Direction8 d, float length) {
+			return d.ToVector2().Normalized() * length;
+		}
+
 		public static Direction8 FromVector2(Vector2 vec) {
 			var rad = Mathf.Atan2(vec.Y, vec.X);
 			var dir = (Utility.Mod((int)(rad * Mathf.Rad2Deg), 360) / 45);
