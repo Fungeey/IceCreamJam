@@ -39,10 +39,18 @@ namespace IceCreamJam {
 			return d.ToVector2().Normalized() * length;
 		}
 
+		public static bool IsVertical(this Direction8 d) {
+			return d == Direction8.North || d == Direction8.South;
+		}
+
+		public static bool IsHorizontal(this Direction8 d) {
+			return d == Direction8.West || d == Direction8.East;
+		}
+
 		public static Direction8 FromVector2(Vector2 vec) {
 			var rad = Mathf.Atan2(vec.Y, vec.X);
-			var dir = (Utility.Mod((int)(rad * Mathf.Rad2Deg), 360) / 45);
-			return (Direction8)(dir % 8);
+			var dir = (Utility.Mod((int)(rad * Mathf.Rad2Deg), 360) + 22.5f) / 45;
+			return (Direction8)Utility.Mod((int)dir, 8);
 		}
 
 

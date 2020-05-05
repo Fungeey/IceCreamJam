@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Nez;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IceCreamJam.RoadSystem {
     class RoadSystemComponent : SceneComponent {
@@ -23,13 +24,17 @@ namespace IceCreamJam.RoadSystem {
             base.OnEnabled();
 
             mapLoader = Scene.GetSceneComponent<TilemapLoader>();
-            mapLoader.OnLoad += MapLoader_OnLoad;
+            mapLoader.OnLoad += RegisterNodes;
 
             graph = new WeightedRoadGraph();
         }
 
-        private void MapLoader_OnLoad() {
+        private void RegisterNodes() {
             nodes = MapNodeGenerator.GenerateNodes(mapLoader.tiledMap.map);
+            foreach(Node node in nodes) {
+                Scene.AddEntity(node);
+                node.roadSystem = this;
+            }
         }
 
         public override void Update() {
@@ -44,10 +49,14 @@ namespace IceCreamJam.RoadSystem {
             }
 
             UpdateTarget();
+
+            if(Input.LeftMouseButtonPressed) {
+                Scene.AddEntity(new TestVehicle() { Position = GetRandomEmptyNode().Position });
+            }
         }
 
         private void UpdateTarget() {
-            var closestNode = GetNodeClosestTo(truck);
+            var closestNode = GetNodeClosestTo(Scene.FindEntity("Crosshair"));
             if(truckTargetNode != closestNode)
                 OnTargetChange?.Invoke();
 
@@ -58,7 +67,7 @@ namespace IceCreamJam.RoadSystem {
             float minDistance = float.MaxValue;
             Node closestNode = null;
             foreach(Node node in nodes) {
-                var dis = Vector2.DistanceSquared(node.position, target.Position);
+                var dis = Vector2.DistanceSquared(node.Position, target.Position);
                 if(dis < minDistance) {
                     minDistance = dis;
                     closestNode = node;
@@ -66,6 +75,15 @@ namespace IceCreamJam.RoadSystem {
             }
 
             return closestNode;
+        }
+
+        public Node GetRandomNode () {
+            return nodes[Nez.Random.NextInt(nodes.Count)];
+        }
+
+        public Node GetRandomEmptyNode() {
+            var empty = nodes.Where(n => n.crossOrder.Count == 0).ToList();
+            return empty[Nez.Random.NextInt(empty.Count)];
         }
     }
 }

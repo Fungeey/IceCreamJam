@@ -55,5 +55,11 @@ namespace IceCreamJam.UI {
             else if(name == "TransitionBack")
                 animator.Play("Vertical");
         }
+
+        public override void DebugRender(Batcher batcher) {
+            base.DebugRender(batcher);
+
+            batcher.DrawCircle(Position, 100, Color.Blue, 5);
+        }
     }
 }

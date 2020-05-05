@@ -67,6 +67,7 @@
         public const string TiledMaps = Content + "TiledMaps/";
         public const string Test1 = TiledMaps + "Test1.tmx";
         public const string RoadTest = TiledMaps + "RoadTest.tmx";
+        public const string SmallRoadTest = TiledMaps + "SmallRoadTest.tmx";
         #endregion
     }
 }

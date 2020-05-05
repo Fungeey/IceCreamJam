@@ -9,7 +9,6 @@ using IceCreamJam.Tiled;
 using IceCreamJam.UI;
 using Microsoft.Xna.Framework;
 using Nez;
-using System;
 
 namespace IceCreamJam.Scenes {
     class MainScene : Scene {
@@ -36,7 +35,7 @@ namespace IceCreamJam.Scenes {
         }
 
         public override void OnStart() {
-            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) } );
+            truck = AddEntity(new Truck() { Position = new Vector2(25 * 32, 25 * 32) } );
             UICanvas = AddEntity(new UIManager());
 
             //for(int i = 0; i < 5; i++) 
@@ -50,20 +49,19 @@ namespace IceCreamJam.Scenes {
                     AddEntity(d);
             }
 
-            for(int i = 0; i < 5; i++) {
-                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
+            System.Threading.Thread.Sleep(1000);
+
+            for(int i = 0; i < 0; i++) {
+                //AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(200 * 32), Nez.Random.NextInt(200 * 32)) });
+                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(50 * 32), Nez.Random.NextInt(50 * 32)) });
             }
-
-            //AddEntity(new Ambulance() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2 + 200) });
-
-            //AddEntity(new Doctor() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2 + 200) });
-            //AddEntity(new Doctor() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2 + 400) });
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.Test1);
-            Camera.ZoomOut(0.5f);
+            loader.Load(ContentPaths.SmallRoadTest);
+            Camera.MinimumZoom = 0.1f;
+            Camera.ZoomOut(0.75f);
             Camera.AddComponent(new FollowCamera(truck));
-        }        
+        }
     }
 }

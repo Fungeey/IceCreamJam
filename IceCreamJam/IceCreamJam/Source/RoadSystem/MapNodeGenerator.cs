@@ -20,18 +20,18 @@ namespace IceCreamJam.RoadSystem {
                     nodes.Add(new Node(map.TileToWorldPosition(t.Position) + new Vector2(Constants.TiledCellSize/2), t.Position.ToPoint()));
             }
 
-            return PruneNodes(nodes, layer);
+            return ConnectNodes(nodes, layer);
         }
 
-        private static List<Node> PruneNodes(List<Node> nodes, TmxLayer layer) {
+        private static List<Node> ConnectNodes(List<Node> nodes, TmxLayer layer) {
             foreach(Node a in nodes) {
                 foreach(Node b in nodes) {
                     if(a.tilePosition == b.tilePosition || a.IsConnectedTo(b))
                         continue;
 
                     if(IsConnected(a, b, layer)) {
-                        a.Add(b);
-                        b.Add(a);
+                        a.ConnectTo(b);
+                        b.ConnectTo(a);
                     }
                 }
             }
