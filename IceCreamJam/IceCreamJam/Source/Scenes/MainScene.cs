@@ -35,7 +35,7 @@ namespace IceCreamJam.Scenes {
         }
 
         public override void OnStart() {
-            truck = AddEntity(new Truck() { Position = new Vector2(25 * 32, 25 * 32) } );
+            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) } );
             UICanvas = AddEntity(new UIManager());
 
             //for(int i = 0; i < 5; i++) 
@@ -49,11 +49,8 @@ namespace IceCreamJam.Scenes {
                     AddEntity(d);
             }
 
-            System.Threading.Thread.Sleep(1000);
-
-            for(int i = 0; i < 0; i++) {
-                //AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(200 * 32), Nez.Random.NextInt(200 * 32)) });
-                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(50 * 32), Nez.Random.NextInt(50 * 32)) });
+            for(int i = 0; i < 5; i++) {
+                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
             }
 
             AddEntity(new Crosshair());

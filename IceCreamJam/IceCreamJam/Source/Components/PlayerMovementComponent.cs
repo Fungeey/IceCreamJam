@@ -73,6 +73,8 @@ namespace IceCreamJam.Components {
 			Normal, FullDash, MiniDash
 		}
 
+		public bool IsFullDashing => state == State.FullDash;
+
 		[Inspectable]
 		public float Speed { get; private set; } = 0f;
 		[Inspectable]

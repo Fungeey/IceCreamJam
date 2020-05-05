@@ -3,13 +3,13 @@ using Nez;
 using Nez.UI;
 
 namespace IceCreamJam.UI {
-    class ShadedImage : Image {
+    class ShadedImage<T> : Image where T : Effect {
 
-        public Effect effect;
+        public T effect;
 
-        public ShadedImage(Effect effect) : this(effect, null) { }
+        public ShadedImage(T effect) : this(effect, null) { }
 
-        public ShadedImage(Effect effect, Texture2D texture, Scaling scaling = Scaling.Stretch, int align = 1) : base(texture, scaling, align) {
+        public ShadedImage(T effect, Texture2D texture, Scaling scaling = Scaling.Stretch, int align = 1) : base(texture, scaling, align) {
             this.effect = effect;
         }
 
