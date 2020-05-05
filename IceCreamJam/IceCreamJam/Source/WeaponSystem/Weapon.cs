@@ -42,7 +42,7 @@ namespace IceCreamJam.WeaponSystem {
         }
 
         public virtual void Shoot() {
-            bool sufficientAmmo = weaponComponent.ammo - ammoCost >= 0;
+            bool sufficientAmmo = weaponComponent.Ammo >= ammoCost;
             if(canShoot && sufficientAmmo) {
                 canShoot = false;
                 Core.StartCoroutine(ReloadTimer());

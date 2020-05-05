@@ -6,14 +6,9 @@ namespace IceCreamJam.Components {
 		[Inspectable]
 		private Direction8 direction;
 
-		[Inspectable]
-		internal Direction8 PreviousDirection { get; private set; }
-		internal Direction8 Direction {
+		public Direction8 Direction {
 			get => this.direction; set {
-				if (this.direction != value) {
-					OnDirectionChange?.Invoke(value);
-				}
-				this.PreviousDirection = direction;
+				if (this.direction != value) OnDirectionChange?.Invoke(value);
 				this.direction = value;
 			}
 		}

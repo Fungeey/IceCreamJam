@@ -7,12 +7,11 @@ namespace IceCreamJam.Components {
 		ArcadeRigidbody rb;
 		DirectionComponent direction;
 		PlayerInputComponent playerInput;
-		SetAnimator animator;
 
 		/// <summary>
 		/// when accelerating, speed is set to this value if less than the kickstart
 		/// </summary>
-		public float kickstartSpeed = 40f;
+		public float kickstartSpeed = 20f;
 		/// <summary>
 		/// the acceleration of the vehicle in pixels/second/second
 		/// </summary>
@@ -38,7 +37,7 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the speed added to the current speed at the beginning of a dash in pixels/second
 		/// </summary>
-		public float initialDashBoost = 50f;
+		public float initialDashBoost = 100f;
 		/// <summary>
 		/// the maximum speed of the vehicle during a full dash in pixels/second
 		/// </summary>
@@ -59,7 +58,7 @@ namespace IceCreamJam.Components {
 		/// the duration and cooldown time of a mini dash in seconds
 		/// </summary>
 		public float miniDashTime = 1f;
-		
+
 
 		private Direction8 targetHeading;
 		private Direction8 CurrentHeading {
@@ -78,7 +77,7 @@ namespace IceCreamJam.Components {
 		[Inspectable]
 		public float Speed { get; private set; } = 0f;
 		[Inspectable]
-		public const float maxSpeed = 200f;
+		public float MaxSpeed { get; private set; } = 200f;
 		[Inspectable]
 		private float turnTimer = 0;
 
@@ -95,7 +94,6 @@ namespace IceCreamJam.Components {
 			rb = Entity.GetComponent<ArcadeRigidbody>();
 			direction = Entity.GetComponent<DirectionComponent>();
 			playerInput = Entity.GetComponent<PlayerInputComponent>();
-			animator = Entity.GetComponent<SetAnimator>();
 
 			playerInput.OnInputStart += this.PlayerInput_OnInputStart;
 			direction.OnDirectionChange += this.Direction_OnDirectionChange;
@@ -117,7 +115,6 @@ namespace IceCreamJam.Components {
 					if (fullDashCooldownTimer == 0 && Speed + initialDashBoost >= normalMaxSpeed) {
 						state = State.FullDash;
 						fullDashTimer = fullDashTime;
-						animator.PlaySet("fullDash");
 					} else {
 						state = State.MiniDash;
 						miniDashTimer = miniDashTime;
@@ -128,12 +125,10 @@ namespace IceCreamJam.Components {
 				if (fullDashTimer == 0) {
 					state = State.Normal;
 					fullDashCooldownTimer = fullDashCooldownTime;
-					animator.PlaySet("idle");
 				}
 			} else if (state == State.MiniDash) {
 				if (miniDashTimer == 0) {
 					state = State.Normal;
-					animator.PlaySet("idle");
 				}
 			}
 
@@ -159,23 +154,23 @@ namespace IceCreamJam.Components {
 			// TODO: remove hack to instantly stop movement when rammed into a building
 			Vector2 movement = currentVelocity * Time.DeltaTime;
 			if (collider.CollidesWithAny(ref movement, out CollisionResult result)) {
-				if(result.Collider.IsTrigger)
+				if (result.Collider.IsTrigger)
 					return;
 
 				if (result.Collider.PhysicsLayer.IsFlagSet((int)Constants.PhysicsLayers.Buildings)) {
 					Speed = 0;
 				}
 			}
-
-
 		}
 
 		private float CalculateCurrentSpeed(float speed) {
 			if (InputManager.brake) {
 				return Mathf.Approach(speed, 0, brakeDeceleration * Time.DeltaTime);
-			} else if (playerInput.InputHeld && CurrentHeading == targetHeading) {
+			} else if (playerInput.InputHeld) {
 				if (speed < kickstartSpeed) speed = kickstartSpeed;
-				return Mathf.Approach(speed, maxSpeed, acceleration * Time.DeltaTime);
+				if (CurrentHeading == targetHeading)
+					return Mathf.Approach(speed, MaxSpeed, acceleration * Time.DeltaTime);
+				else return speed;
 			} else {
 				return Mathf.Approach(speed, 0, coastDeceleration * Time.DeltaTime);
 			}
@@ -189,7 +184,7 @@ namespace IceCreamJam.Components {
 					turnTimer -= turnTime;
 					return System.Math.Sign(difference);
 				} else {
-					turnTimer += Time.DeltaTime + (Time.DeltaTime * Speed / maxSpeed);
+					turnTimer += Time.DeltaTime + (Time.DeltaTime * Speed / MaxSpeed);
 					return 0;
 				}
 			}

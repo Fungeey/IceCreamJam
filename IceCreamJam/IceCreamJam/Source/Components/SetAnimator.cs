@@ -12,6 +12,7 @@ namespace IceCreamJam.Components {
 		private bool switchedAnimationSet = false;
 
 		public AnimationSet CurrentAnimationSet { get; set; }
+		public string CurrentAnimationSetName => CurrentAnimationSet.name;
 
 		public SetAnimator() {
 			animationSets = new Dictionary<string, AnimationSet>();

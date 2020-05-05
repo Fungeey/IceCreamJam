@@ -8,19 +8,19 @@ using System.Collections.Generic;
 namespace IceCreamJam.Systems {
     class CivilianSystem : EntitySystem {
         private Truck truck;
+        private ArcadeRigidbody truckrb;
 
         private const int approachRadius = 150;
         private const int stopRadius = 75;
         private const int awayRadius = 50;
 
         public CivilianSystem(Matcher matcher) : base(matcher) { }
+        protected override void Begin() {
+            truck = (Truck)Scene.FindEntity("Truck");
+            truckrb = truck.GetComponent<ArcadeRigidbody>();
+        }
 
         protected override void Process(List<Entity> entities) {
-            base.Process(entities);
-
-            if(truck == null)
-                truck = (Truck)Scene.FindEntity("Truck");
-
             foreach(Entity e in entities) {
                 var civilian = (Civilian)e;
 
@@ -39,10 +39,10 @@ namespace IceCreamJam.Systems {
                 if(distance <= approachRadius && distance >= stopRadius)
                     vector = direction;
                 else if(distance <= awayRadius) {
-                    var angle = Mathf.Atan2(truck.rb.Velocity.Y, truck.rb.Velocity.X);
+                    var angle = Mathf.Atan2(truckrb.Velocity.Y, truckrb.Velocity.X);
 
                     var b = truck.Position;
-                    var a = truck.Position + truck.rb.Velocity;
+                    var a = truck.Position + truckrb.Velocity;
                     var position = Math.Sign((b.X - a.X) * (civilian.Position.Y - a.Y) - (b.X - a.X) * (civilian.Position.X - a.X));
                     var offset = Mathf.Deg2Rad * 90 * position;
                     angle += offset;
@@ -50,7 +50,7 @@ namespace IceCreamJam.Systems {
                     var perpendicular = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                     direction = Vector2.Normalize(direction + perpendicular);
 
-                    vector = (-direction) * truck.rb.Velocity.Length() / 2 * (1 / distance);
+                    vector = (-direction) * truckrb.Velocity.Length() / 2 * (1 / distance);
                 }
 
                 var final = vector + avoid;

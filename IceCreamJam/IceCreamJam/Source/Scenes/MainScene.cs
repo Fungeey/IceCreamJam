@@ -1,5 +1,4 @@
 ﻿using IceCreamJam.Components;
-
 using IceCreamJam.Entities;
 using IceCreamJam.Entities.Enemies;
 using IceCreamJam.Rendering;
@@ -19,11 +18,8 @@ namespace IceCreamJam.Scenes {
         public UIManager UICanvas;
 
         public override void Initialize() {
-            Physics.RaycastsStartInColliders = false;
-
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
-
 
             SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAll);
             AddRenderer(new DefaultRenderer());
@@ -35,29 +31,33 @@ namespace IceCreamJam.Scenes {
         }
 
         public override void OnStart() {
-            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) } );
+            loader.Load(ContentPaths.SmallRoadTest);
+            var map = loader.tiledMap.map;
+
+            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) });
             UICanvas = AddEntity(new UIManager());
 
             //for(int i = 0; i < 5; i++) 
-            //    AddEntity(new Civilian(ContentPaths.NPC + $"NPC{i}.png") { Position = new Vector2(Screen.Width / 2 + i * 32, Screen.Height / 2) });
+            //    AddEntity(new Civilian(ContentPaths.NPC + $"NPC{i}.png") { Position = new Vector2(Screen.Width / 2 + i * 32, Screen.Height / 2) 
 
-            for(int i = 0; i < 0; i++) {
+            for (int i = 0; i < 10; i++) {
                 var d = Pool<Doctor>.Obtain();
-                d.Initialize(new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)));
+                
+                d.Initialize(new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)));
 
-                if(d.isNewEnemy)
+                if (d.isNewEnemy)
                     AddEntity(d);
             }
 
-            for(int i = 0; i < 5; i++) {
-                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
+            for (int i = 0; i < 4; i++) {
+                AddEntity(new TestVehicle() { Position = new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)) });
             }
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.SmallRoadTest);
+            
             Camera.MinimumZoom = 0.1f;
-            Camera.ZoomOut(0.75f);
+            Camera.ZoomIn(0.5f);
             Camera.AddComponent(new FollowCamera(truck));
         }
     }

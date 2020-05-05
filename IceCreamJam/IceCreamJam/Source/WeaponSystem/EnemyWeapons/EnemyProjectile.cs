@@ -1,5 +1,6 @@
 ﻿using IceCreamJam.Components;
 using IceCreamJam.Entities;
+using IceCreamJam.Source.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 
@@ -21,7 +22,7 @@ namespace IceCreamJam.WeaponSystem.EnemyWeapons {
                 CollidesWithLayers = (int)(Constants.PhysicsLayers.Buildings | Constants.PhysicsLayers.Player | Constants.PhysicsLayers.PlayerProjectiles),
             });
 
-            if(lifetime != 0f) {
+            if (lifetime != 0f) {
                 this.lifeComponent = AddComponent(new ProjectileLifeComponent(lifetime));
                 lifeComponent.Start();
             }
@@ -31,8 +32,11 @@ namespace IceCreamJam.WeaponSystem.EnemyWeapons {
         }
 
         public override void OnHit(CollisionResult? result) {
-            if(result.HasValue && result.Value.Collider.Entity is Truck)
-                (result.Value.Collider.Entity as Truck).Damage(damage);
+            HealthComponent health;
+            if (result.HasValue) {
+                if ((health = result.Value.Collider.Entity.GetComponent<HealthComponent>()) != null)
+                health.Damage(damage);
+            }
         }
     }
 }
