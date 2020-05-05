@@ -22,9 +22,8 @@ namespace IceCreamJam.UI {
 		private PlayerWeaponComponent playerWeapon;
 		private PlayerMovementComponent playerMove;
 
-		private ShadedImage healthBar, dashBar, speedBar;
-		private Texture2D speedRegular, speedMaxed;
-		private float previousSpeedValue;
+		private ShadedImage<UIMaskEffect> healthBar, dashBar, speedBar;
+		private SpriteDrawable speedRegular, speedMaxed;
 
 		private ProgressBar ammo;
 		private List<Image> weaponSlots;
@@ -63,18 +62,18 @@ namespace IceCreamJam.UI {
 				healthFrame.SetPosition(x, y);
 				healthFrame.SetSize(508, 58);
 
-				ShadedImage AddBar(string path, Vector2 pos) {
+				ShadedImage<UIMaskEffect> AddBar(string path, Vector2 pos) {
 					var effect = Scene.Content.LoadEffect<UIMaskEffect>(ContentPaths.MaskEffect);
 					var texture = Scene.Content.LoadTexture(path);
-					var image = new ShadedImage(effect, texture);
+					var image = new ShadedImage<UIMaskEffect>(effect, texture);
 					image.SetPosition(pos.X, pos.Y);
 					image.SetSize(texture.Width * 2, texture.Height * 2);
 					internals.Stage.AddElement(image);
 					return image;
 				}
 
-				speedRegular = Scene.Content.LoadTexture(ContentPaths.SpeedInternal);
-				speedMaxed = Scene.Content.LoadTexture(ContentPaths.SpeedInternalMaxed);
+				speedRegular = new SpriteDrawable(Scene.Content.LoadTexture(ContentPaths.SpeedInternal));
+				speedMaxed = new SpriteDrawable(Scene.Content.LoadTexture(ContentPaths.SpeedInternalMaxed));
 
 				healthBar = AddBar(ContentPaths.HealthInternal, new Vector2(x + 50, y + 8));
 				dashBar = AddBar(ContentPaths.DashInternal, new Vector2(x + 80, y + 34));
@@ -143,23 +142,21 @@ namespace IceCreamJam.UI {
 			weaponSlots[2].SetDrawable(new SpriteDrawable(weaponIcons[playerWeapon.PreviousWeapon.iconIndex]));
 		}
 
-		private void UpdateAmmo(float value) {
-			ammo.SetValue(PlayerWeaponComponent.MaxAmmo - value);
+		private void UpdateAmmo(float ammoValue) {
+			ammo.SetValue(PlayerWeaponComponent.MaxAmmo - ammoValue);
 		}
 
-		private void UpdateHealth(float value) {
-			(healthBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value / Truck.MaxHealth, 0, 1);
+		private void UpdateHealth(float health) {
+			(healthBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(health / Truck.MaxHealth, 0, 1);
 		}
 
-		private void UpdateSpeed(float value) {
-			(speedBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(value, 0, 1);
+		private void UpdateSpeed(float speed) {
+			(speedBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(speed, 0, 1);
 
-			if (previousSpeedValue == 1 && value < 1)
-				speedBar.SetDrawable(new SpriteDrawable(speedRegular));
-			else if (previousSpeedValue < 1 && value == 1)
-				speedBar.SetDrawable(new SpriteDrawable(speedMaxed));
-
-			previousSpeedValue = value;
+			if (!playerMove.IsFullDashing)
+				speedBar.SetDrawable(speedRegular);
+			else
+				speedBar.SetDrawable(speedMaxed);
 		}
 	}
 }

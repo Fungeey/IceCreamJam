@@ -62,7 +62,7 @@ namespace IceCreamJam.Scenes {
             AddEntity(new Crosshair());
 
             loader.Load(ContentPaths.Test1);
-            Camera.ZoomOut(0.5f);
+            Camera.ZoomIn(0.5f);
             Camera.AddComponent(new FollowCamera(truck));
         }        
     }
