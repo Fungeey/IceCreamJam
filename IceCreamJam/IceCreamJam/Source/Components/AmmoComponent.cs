@@ -31,7 +31,7 @@ namespace IceCreamJam.Source.Components {
 		public AmmoComponent(int ammo) : this(ammo, ammo) { }
 
 		public int Spend(int value) {
-			Ammo -= Math.Max(0, value);
+			//Ammo -= Math.Max(0, value);
 			return Ammo;
 		}
 

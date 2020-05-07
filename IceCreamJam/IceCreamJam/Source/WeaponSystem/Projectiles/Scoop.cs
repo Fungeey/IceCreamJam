@@ -1,5 +1,6 @@
 ﻿
 using IceCreamJam.Entities;
+using IceCreamJam.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
@@ -9,16 +10,24 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
     class Scoop : Projectile {
 
         private ScoopType type;
+        private Vector2 initV = new Vector2(0,0);
         public Vector2 truckVelocity;
 
         public void Initialize(Vector2 direction, Vector2 position, ScoopType type) {
             base.Initialize(direction, position);
 
+            initV = PlayerMovementComponent.getCurrentVelocity() * 0.7f;
+
             this.cost = 1;
             this.damage = 1;
-            this.speed = 180;
+            this.speed = 300;
             this.lifetime = 1;
 
+            /*
+            if (!PlayerMovementComponent.turning) {
+                initV = PlayerMovementComponent.getCurrentVelocity();
+            }
+            */
             // If this scoop has been reused, set it to use the correct texture.
             if(!IsNewProjectile && this.type != type) {
                 this.type = type;
@@ -48,8 +57,10 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
             var dot = Vector2.Dot(Vector2.Normalize(truckVelocity), direction);
             //if(dot > 0)
             //    return (direction * speed * Time.DeltaTime) + dot * truckVelocity;
-            return (direction * speed * Time.DeltaTime);
+            //return (direction * speed * Time.DeltaTime);
+            return ((initV  + direction * speed) * Time.DeltaTime);
         }
+        //CHANGED
 
         public override void OnHit(CollisionResult? result) {
             base.OnHit(result);

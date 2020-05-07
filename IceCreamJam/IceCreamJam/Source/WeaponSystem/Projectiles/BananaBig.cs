@@ -1,5 +1,6 @@
 ﻿
 using IceCreamJam.Entities.Enemies;
+using IceCreamJam.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
@@ -73,7 +74,7 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
         }
 
         public override Vector2 CalculateVector() {
-            return direction * speed * Time.DeltaTime * awayVelocity;
+            return PlayerMovementComponent.getCurrentVelocity() * Time.DeltaTime + direction * speed * Time.DeltaTime * awayVelocity;
         }
 
         public override void OnHit(CollisionResult? result) {
