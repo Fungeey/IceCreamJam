@@ -6,8 +6,10 @@ namespace IceCreamJam {
 
         #region Tiled
         public const string TiledLayerBackground = "Background";
+        public const string TiledLayerBuildings = "Buildings";
         public const int TiledCellSize = 32;
         public const string TiledPropertyID = "TileID";
+        public const string TiledIDBuilding = "Building";
         public const string TiledIDSidewalk = "Sidewalk";
         public const string TiledIDRoad = "Road";
         public const string TiledIDGrass = "Grass";
@@ -34,9 +36,9 @@ namespace IceCreamJam {
 
         public const int Layer_Truck = 15;
         public const int Layer_NPC = 5;
-        public const int Layer_Buildings = 6;
 
         public const int Layer_FX = 8;
+        public const int RenderLayer_Buildings = 4;
 
         public const float TwoPi = (float)Math.PI * 2;
         public const float HalfPi = (float)Math.PI / 2;
