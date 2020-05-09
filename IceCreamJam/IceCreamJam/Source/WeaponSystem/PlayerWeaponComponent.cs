@@ -1,16 +1,23 @@
 ﻿using IceCreamJam.Components;
 using IceCreamJam.Scenes;
+using IceCreamJam.Source.Components;
 using IceCreamJam.UI;
 using Microsoft.Xna.Framework;
 using Nez;
+using Nez.Sprites;
 using System;
 using System.Collections.Generic;
 
 namespace IceCreamJam.WeaponSystem {
     class PlayerWeaponComponent : Component, IUpdatable {
+        private SetAnimator setAnimator;
+        private SpriteAnimator spriteAnimator;
+        private AmmoComponent ammoComponent;
 
-        public const int MaxAmmo = 50;
-        public int ammo;
+        public int Ammo {
+            get => ammoComponent.Ammo; set => ammoComponent.Ammo = value;
+        }
+
         public UIManager ui;
 
         public List<Weapon> weapons;
@@ -18,7 +25,6 @@ namespace IceCreamJam.WeaponSystem {
         public Weapon ActiveWeapon => weapons[WeaponIndex];
         public Weapon PreviousWeapon => weapons[Utility.Mod(WeaponIndex - 1, weapons.Count)];
         public Weapon NextWeapon => weapons[Utility.Mod(WeaponIndex + 1, weapons.Count)];
-        public PlayerAnimationComponent animationComponent;
 
         public event Action<int> OnWeaponShoot;
         public event Action OnWeaponCycle;
@@ -28,16 +34,18 @@ namespace IceCreamJam.WeaponSystem {
         public PlayerWeaponComponent(List<Weapon> weapons) {
             this.weapons = weapons;
 
-            foreach(Weapon w in weapons)
+            foreach (Weapon w in weapons)
                 w.weaponComponent = this;
-
-            ammo = MaxAmmo;
         }
 
         public override void OnAddedToEntity() {
+            setAnimator = Entity.GetComponent<SetAnimator>();
+            spriteAnimator = Entity.GetComponent<SpriteAnimator>();
+            ammoComponent = Entity.GetComponent<AmmoComponent>();
+
             ui = (Entity.Scene as MainScene).UICanvas;
 
-            foreach(Weapon w in weapons) {
+            foreach (Weapon w in weapons) {
                 Entity.Scene.AddEntity(w);
                 w.defaultVisible = false;
             }
@@ -70,7 +78,8 @@ namespace IceCreamJam.WeaponSystem {
         }
 
         public void OnShoot() {
-            OnWeaponShoot?.Invoke(ammo -= ActiveWeapon.ammoCost);
+            int newValue = this.ammoComponent.Spend(this.ActiveWeapon.ammoCost);
+            OnWeaponShoot?.Invoke(newValue);
         }
 
         public void Update() {
@@ -86,18 +95,9 @@ namespace IceCreamJam.WeaponSystem {
         }
 
         private void UpdateWeapons() {
-            if(animationComponent == null)
-                animationComponent = Entity.GetComponent<PlayerAnimationComponent>();
+            Vector2 weaponOffset = setAnimator.CurrentAnimationSetName == "idle" && spriteAnimator.CurrentFrame == 1 ? new Vector2(0, -15) : new Vector2(0, -16);
 
-            // TODO: Hook this up with the new SetAnimator so the weapons bob too.
-
-            Vector2 weaponOffset =  new Vector2(0, -16);
-            //if(animationComponent.Animator.CurrentFrame == 1)
-            //    weaponOffset = new Vector2(0, -15);
-            //else
-            //    weaponOffset = new Vector2(0, -16);
-
-            foreach(Weapon w in weapons)
+            foreach (Weapon w in weapons)
                 w.Position = Entity.Position + weaponOffset;
         }
     }

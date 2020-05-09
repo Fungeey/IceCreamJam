@@ -1,4 +1,5 @@
 ﻿using IceCreamJam.Components;
+using IceCreamJam.Source.Components;
 using IceCreamJam.WeaponSystem;
 using IceCreamJam.WeaponSystem.Weapons;
 using Microsoft.Xna.Framework;
@@ -9,33 +10,28 @@ using System;
 namespace IceCreamJam.Entities {
 	class Truck : Entity {
 		public const float MaxHealth = 50;
-		private float health;
-
-		public event Action<float> OnDamage;
-
-		public ArcadeRigidbody rb;
 
 		public override void OnAddedToScene() {
-			health = MaxHealth;
 			Name = "Truck";
-			
-			var dir = AddComponent(new DirectionComponent());
+
+			AddComponent(new HealthComponent(MaxHealth));
+			AddComponent(new AmmoComponent(50));
+			AddComponent(new DirectionComponent());
 			AddComponent(new PlayerInputComponent());
-			AddComponent(new PlayerStateMachine());
 
 			AddComponent(new SpriteAnimator() { RenderLayer = Constants.RenderLayer_Truck, LayerDepth = 1 });
 			AddComponent(new RenderSorterComponent());
 			AddComponent(new SetAnimator());
-			AddComponent(new PlayerAnimationComponent());
 			
 			AddComponent(new PolygonCollider() { PhysicsLayer = (int)Constants.PhysicsLayers.Player, CollidesWithLayers = (int)Constants.PhysicsLayers.Buildings });
-			var colliderManager = AddComponent(new ColliderManager(ContentPaths.Content + "truckcollision.json"));
-			dir.OnDirectionChange += i => colliderManager.SetIndex((int)i);
+			AddComponent(new ColliderManager(ContentPaths.Content + "truckcollision.json"));
 
-			this.rb = AddComponent(new ArcadeRigidbody() { ShouldUseGravity = false, Elasticity = 0 });
+			AddComponent(new ArcadeRigidbody() { ShouldUseGravity = false, Elasticity = 0 });
 			AddComponent(new PlayerMovementComponent());
 
 			AddComponent(new PlayerWeaponComponent(new ScoopGun(), new PopsicleGun(), new BananaBigGun(), new BananaSmallGun()));
+
+			AddComponent(new PlayerStateMachine());
 		}
 
 		public override void DebugRender(Batcher batcher) {
@@ -44,14 +40,6 @@ namespace IceCreamJam.Entities {
 			//batcher.DrawCircle(this.Position, 50, Color.Green);
 			//batcher.DrawCircle(this.Position, 75, Color.Green);
 			//batcher.DrawCircle(this.Position, 150, Color.Green);
-		}
-
-		public void Damage(float damage) {
-			health -= damage;
-			OnDamage?.Invoke(health);
-
-			if(health <= 0)
-				Debug.Log("Dead!");
 		}
 	}
 }

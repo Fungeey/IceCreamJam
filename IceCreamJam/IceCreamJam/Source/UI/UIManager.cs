@@ -2,6 +2,7 @@
 using IceCreamJam.Effects;
 using IceCreamJam.Entities;
 using IceCreamJam.Scenes;
+using IceCreamJam.Source.Components;
 using IceCreamJam.WeaponSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +22,8 @@ namespace IceCreamJam.UI {
 		private Truck truck;
 		private PlayerWeaponComponent playerWeapon;
 		private PlayerMovementComponent playerMove;
+		private HealthComponent playerHealth;
+		private AmmoComponent playerAmmo;
 
 		private ShadedImage<UIMaskEffect> healthBar, dashBar, speedBar;
 		private SpriteDrawable speedRegular, speedMaxed;
@@ -35,12 +38,15 @@ namespace IceCreamJam.UI {
 			var mainScene = (Scene as MainScene);
 			truck = mainScene.truck;
 			playerWeapon = truck.GetComponent<PlayerWeaponComponent>();
-			playerWeapon.OnWeaponShoot += a => UpdateAmmo(a);
 			playerWeapon.OnWeaponCycle += UpdateWeaponIcons;
 
 			playerMove = truck.GetComponent<PlayerMovementComponent>();
 
-			truck.OnDamage += (h) => UpdateHealth(h);
+			playerHealth = truck.GetComponent<HealthComponent>();
+			playerHealth.OnHealthChanged += (h) => UpdateHealth(h);
+
+			playerAmmo = truck.GetComponent<AmmoComponent>();
+			playerAmmo.OnAmmoChanged += a => UpdateAmmo(a);
 
 			SetUpUI();
 		}
@@ -94,7 +100,7 @@ namespace IceCreamJam.UI {
 				style.KnobBefore.MinWidth = style.KnobAfter.MinWidth = 24;
 				style.KnobBefore.MinHeight = 0;
 
-				ammo = internals.Stage.AddElement(new ProgressBar(0, PlayerWeaponComponent.MaxAmmo, 1, true, style));
+				ammo = internals.Stage.AddElement(new ProgressBar(0, playerAmmo.MaxAmmo, 1, true, style));
 				ammo.SetSize(0, 324);
 				ammo.SetOrigin((int)Align.TopLeft);
 				ammo.SetPosition(x + 16 * 2, y + 29 * 2);
@@ -133,7 +139,7 @@ namespace IceCreamJam.UI {
 
 			Position = truck.Position;
 			if (playerMove != null)
-				UpdateSpeed(playerMove.Speed / PlayerMovementComponent.maxSpeed);
+				UpdateSpeed(playerMove.Speed / playerMove.normalMaxSpeed);
 		}
 
 		private void UpdateWeaponIcons() {
@@ -143,7 +149,7 @@ namespace IceCreamJam.UI {
 		}
 
 		private void UpdateAmmo(float ammoValue) {
-			ammo.SetValue(PlayerWeaponComponent.MaxAmmo - ammoValue);
+			ammo.SetValue(playerAmmo.MaxAmmo - ammoValue);
 		}
 
 		private void UpdateHealth(float health) {

@@ -1,5 +1,4 @@
 ﻿using IceCreamJam.Components;
-
 using IceCreamJam.Entities;
 using IceCreamJam.Entities.Civilians;
 using IceCreamJam.Entities.Enemies;
@@ -25,6 +24,7 @@ namespace IceCreamJam.Scenes {
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
 
+
             SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAll);
             AddRenderer(new DefaultRenderer());
             RenderableComponentList.CompareUpdatableOrder = new PositionBasedRenderSorter();
@@ -36,7 +36,10 @@ namespace IceCreamJam.Scenes {
         }
 
         public override void OnStart() {
-            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) } );
+            loader.Load(ContentPaths.SmallRoadTest);
+            var map = loader.tiledMap.map;
+
+            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) });
             UICanvas = AddEntity(new UIManager());
 
             for(int i = 0; i < 5; i++) 
@@ -44,29 +47,23 @@ namespace IceCreamJam.Scenes {
 
             for(int i = 0; i < 2; i++) {
                 var d = Pool<Doctor>.Obtain();
-                d.Initialize(new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)));
+                
+                d.Initialize(new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)));
 
-                if(d.isNewEnemy)
+                if (d.isNewEnemy)
                     AddEntity(d);
             }
 
-            for(int i = 0; i < 5; i++) {
-                AddEntity(new TestVehicle() { Position = new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)) });
+            for (int i = 0; i < 4; i++) {
+                AddEntity(new TestVehicle() { Position = new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)) });
             }
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.Test1);
-            Camera.ZoomIn(0.25f);
-            Camera.AddComponent(new FollowCamera(truck));
             
-        }
-
-        public override void Update() {
-            base.Update();
-
-            //if(InputManager.yAxis.Value != 0)
-            //    RenderableComponents.SetRenderLayerNeedsComponentSort(0);
+            Camera.MinimumZoom = 0.1f;
+            Camera.ZoomIn(0.5f);
+            Camera.AddComponent(new FollowCamera(truck));
         }
     }
 }
