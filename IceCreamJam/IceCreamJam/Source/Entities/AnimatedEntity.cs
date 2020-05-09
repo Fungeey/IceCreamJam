@@ -6,8 +6,10 @@ namespace IceCreamJam.Entities {
         public SpriteAnimator animator;
         public AnimatedEntity() {
             this.animator = AddComponent(new SpriteAnimator() {
-                RenderLayer = Constants.Layer_FX
+                RenderLayer = Constants.RenderLayer_FX
             });
+
+            Name = "AnimatedEffectEntity";
         }
 
         public override void OnAddedToScene() {

@@ -30,7 +30,7 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
 
         public override void SetupTextures() {
             var animator = AddComponent(new SpriteAnimator() {
-                RenderLayer = Constants.Layer_Bullets
+                RenderLayer = Constants.RenderLayer_Bullets
             });
 
             var texture = Scene.Content.LoadTexture(ContentPaths.Banana_Big);

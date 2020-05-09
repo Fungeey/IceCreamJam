@@ -27,13 +27,13 @@ namespace IceCreamJam.WeaponSystem.Weapons {
             base.OnAddedToScene();
 
             var popsicleTexture = Scene.Content.LoadTexture(ContentPaths.Popsicle + "Popsicle_Basic.png");
-            loadedPopsicle = Scene.AddEntity(new SpriteEntity(popsicleTexture, Constants.Layer_WeaponOver, 0.5f));
+            loadedPopsicle = Scene.AddEntity(new SpriteEntity(popsicleTexture, Constants.RenderLayer_Truck, 0.5f));
             loadedPopsicle.ToggleVisible(defaultVisible);
 
             shatterFX = Scene.AddEntity(new AnimatedEntity());
             AddFXAnimation();
             shatterFX.ToggleVisible(false);
-            shatterFX.animator.RenderLayer = Constants.Layer_WeaponOver;
+            shatterFX.animator.RenderLayer = Constants.RenderLayer_Truck;
             shatterFX.animator.LayerDepth = 0.4f;
             shatterFX.animator.OnAnimationCompletedEvent += (s) => ReloadPopsicle();
         }

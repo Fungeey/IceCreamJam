@@ -8,8 +8,7 @@ namespace IceCreamJam.Components {
 
         private Mover mover;
         private VehiclePathfindingComponent pathfinding;
-        private float speed = 320;
-        private Color color;
+        private float speed = 50;
 
         private Direction8 currentDirection;
 
@@ -107,7 +106,7 @@ namespace IceCreamJam.Components {
 
             batcher.DrawLine(Entity.Position, TargetPosition, Color.Red, 2);
             batcher.DrawLine(Entity.Position, Entity.Position + currentDirection.ToNormalizedVector2(50), Color.Blue, 3);
-            batcher.DrawCircle(pathfinding.currentNode.Position, 50, Color.Black, 3);
+            batcher.DrawCircle(pathfinding.currentNode.Position, 10, Color.Black);
 
             if(IsTurning) {
                 //var target = pathfinding.currentNode.Position + pathfinding.currentNode.GetOffsetAfter(pathfinding.NextNode);

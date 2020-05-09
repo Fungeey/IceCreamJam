@@ -1,5 +1,4 @@
 ﻿using IceCreamJam.Components;
-using IceCreamJam.Entities;
 using Microsoft.Xna.Framework;
 using Nez;
 using System;
@@ -22,18 +21,6 @@ namespace IceCreamJam.RoadSystem {
 
             connections = new Dictionary<Node, Connection>();
             crossOrder = new Queue<VehicleMoveComponent>();
-        }
-
-        private BoxCollider GetTriggerBoxCollilder(Direction8 dir) {
-            var size = new Point(dir.IsVertical() ? 160 : 32, dir.IsHorizontal() ? 160 : 32);
-            var rect = new Rectangle(Point.Zero, size);
-            var offset = dir.ToVector2() * 96;
-
-            return new BoxCollider(rect) {
-                IsTrigger = true,
-                LocalOffset = offset,
-                CollidesWithLayers = (int)Constants.PhysicsLayers.None
-            };
         }
 
         public void QueueVehicle(VehicleMoveComponent vehicle) {
@@ -71,9 +58,6 @@ namespace IceCreamJam.RoadSystem {
         }
 
         public bool IsConnectedTo(Node other) => connections.Where(kvp => kvp.Key == other).Any();
-        public bool IsRight(Node previous, Node next) => Direction8Ext.RotateClockwise(previous.GetDirectionTo(this), 2) == GetDirectionTo(next);
-        public bool IsLeft(Node previous, Node next) => Direction8Ext.RotateClockwise(previous.GetDirectionTo(this), 6) == GetDirectionTo(next);
-        public bool IsStraight(Node previous, Node next) => previous.GetDirectionTo(this) == GetDirectionTo(next);
         public Direction8 GetDirectionTo(Node other) => Direction8Ext.FromVector2(other.Position - Position);
 
         private float GetConnectedDistance(Node node) {
@@ -90,11 +74,10 @@ namespace IceCreamJam.RoadSystem {
             base.DebugRender(batcher);
 
             foreach(Connection c in connections.Values)
-                batcher.DrawLine(Position, Position + Direction8Ext.ToVector2(c.direction) * 50, Color.Chartreuse, 15);
+                batcher.DrawLine(Position, Position + Direction8Ext.ToVector2(c.direction) * 50, Color.Chartreuse, 5);
 
             if(roadSystem.truckTargetNode == this)
-                batcher.DrawHollowRect(new Rectangle((int)Position.X - 25, (int)Position.Y - 25, 50, 50), Color.White, 15);
-
+                batcher.DrawHollowRect(new Rectangle((int)Position.X - 25, (int)Position.Y - 25, 50, 50), Color.White, 5);
         }
     }
 

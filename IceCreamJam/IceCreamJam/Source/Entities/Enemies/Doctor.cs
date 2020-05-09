@@ -1,5 +1,4 @@
-﻿
-using IceCreamJam.WeaponSystem.EnemyWeapons;
+﻿using IceCreamJam.WeaponSystem.EnemyWeapons;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
@@ -54,7 +53,7 @@ namespace IceCreamJam.Entities.Enemies {
         }
 
         private void SetupAnimations() {
-            this.animator = new SpriteAnimator() { RenderLayer = Constants.Layer_NPC };
+            this.animator = new SpriteAnimator() { RenderLayer = Constants.RenderLayer_Enemy };
 
             var runTexture = Scene.Content.LoadTexture(ContentPaths.Doctor + "DocRun.png");
             var runSprites = Sprite.SpritesFromAtlas(runTexture, 20, 28);
@@ -72,7 +71,7 @@ namespace IceCreamJam.Entities.Enemies {
             animator.AddAnimation("Hurt", 20, hurtSprites.ToArray());
             animator.AddAnimation("Idle", 8, attackSprites[0]);
 
-            this.renderer = animator;
+            renderer = animator;
             AddComponent(animator);
             animator.Play("Run");
 

@@ -28,17 +28,15 @@ namespace IceCreamJam {
             EnemyProjectiles = 16
         }
 
-        public const int Layer_Map = 100;
-        public const int Layer_WeaponBase = 10;
-        public const int Layer_Bullets = 9;
-        public const int Layer_WeaponOver = 8;
-        public const int Layer_UI = -10;
+        public const int RenderLayer_Bullets = 9;
+        public const int RenderLayer_UI = -10;
+        public const int RenderLayer_FX = 8;
 
-        public const int Layer_Truck = 15;
-        public const int Layer_NPC = 5;
-
-        public const int Layer_FX = 8;
+        public const int RenderLayer_Civilian = 1;
+        public const int RenderLayer_Enemy = 2;
+        public const int RenderLayer_Truck = 3;
         public const int RenderLayer_Buildings = 4;
+        public const int RenderLayer_Vehicles = 5;
 
         public const float TwoPi = (float)Math.PI * 2;
         public const float HalfPi = (float)Math.PI / 2;

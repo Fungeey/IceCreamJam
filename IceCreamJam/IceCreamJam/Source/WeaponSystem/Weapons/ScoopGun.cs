@@ -27,7 +27,7 @@ namespace IceCreamJam.WeaponSystem.Weapons {
         public override void OnAddedToScene() {
             base.OnAddedToScene();
             var coneTexture = Scene.Content.LoadTexture(ContentPaths.Scoop_Cone);
-            coneDecal = Scene.AddEntity(new SpriteEntity(coneTexture, Constants.Layer_WeaponOver, 0.5f));
+            coneDecal = Scene.AddEntity(new SpriteEntity(coneTexture, Constants.RenderLayer_Truck, 0.5f));
             coneDecal.ToggleVisible(defaultVisible);
             coneSpring = coneDecal.AddComponent(new EntitySpringComponent(this, weaponMountOffset, 5));
 
@@ -47,8 +47,8 @@ namespace IceCreamJam.WeaponSystem.Weapons {
             AddAnimation(Scoop.ScoopType.Vanilla);
             AddAnimation(Scoop.ScoopType.Strawberry);
 
-            shootFX.animator.RenderLayer = Constants.Layer_WeaponOver;
-            shootFX.animator.LayerDepth = 0.6f;
+            shootFX.animator.RenderLayer = Constants.RenderLayer_Truck;
+            shootFX.animator.LayerDepth = 0.4f;
         }
 
         public override void OnEquipped() {

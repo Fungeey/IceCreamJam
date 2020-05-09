@@ -59,7 +59,6 @@
         public const string DashInternal = HealthBar + "Dash_Internal.png";
         public const string SpeedInternal = HealthBar + "Speed_Internal.png";
         public const string SpeedInternalMaxed = HealthBar + "Speed_Internal_Maxed.png";
-
         #endregion
         #endregion
 
@@ -68,6 +67,13 @@
         public const string Test1 = TiledMaps + "Test1.tmx";
         public const string RoadTest = TiledMaps + "RoadTest.tmx";
         public const string SmallRoadTest = TiledMaps + "SmallRoadTest.tmx";
+        #endregion
+
+        #region
+        public const string Tilesets = Content + "TileSets/";
+        public const string Buildings = Tilesets + "Buildings/";
+        public const string BrownHouse = Buildings + "BrownHouse.png";
+        public const string GreenHouse = Buildings + "GreenHouse.png";
         #endregion
     }
 }

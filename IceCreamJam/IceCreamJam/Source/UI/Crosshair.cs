@@ -1,8 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Nez;
+﻿using Nez;
 using Nez.Sprites;
 using Nez.Textures;
-using System;
 
 namespace IceCreamJam.UI {
     class Crosshair : Entity {
@@ -12,14 +10,12 @@ namespace IceCreamJam.UI {
         public override void OnAddedToScene() {
             base.OnAddedToScene();
 
-            this.Name = "Crosshair";
+            Name = "Crosshair";
             SetupTextures();
         }
 
         private void SetupTextures() {
-            this.animator = new SpriteAnimator() {
-                RenderLayer = Constants.Layer_UI
-            };
+            this.animator = new SpriteAnimator();
 
             var texture = Scene.Content.LoadTexture(ContentPaths.Crosshair_Vertical);
             var sprites = Sprite.SpritesFromAtlas(texture, 16, 16);
@@ -41,7 +37,7 @@ namespace IceCreamJam.UI {
         public override void Update() {
             base.Update();
 
-            this.Position = Scene.Camera.MouseToWorldPoint();
+            Position = Scene.Camera.MouseToWorldPoint();
 
             if(InputManager.shoot.IsPressed)
                 animator.Play("TransitionTo", SpriteAnimator.LoopMode.ClampForever);
@@ -54,12 +50,6 @@ namespace IceCreamJam.UI {
                 animator.Play("Diagonal");
             else if(name == "TransitionBack")
                 animator.Play("Vertical");
-        }
-
-        public override void DebugRender(Batcher batcher) {
-            base.DebugRender(batcher);
-
-            batcher.DrawCircle(Position, 100, Color.Blue, 5);
         }
     }
 }

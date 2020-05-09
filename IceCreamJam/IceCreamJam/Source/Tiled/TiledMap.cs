@@ -13,7 +13,7 @@ namespace IceCreamJam.Tiled {
         public override void OnAddedToScene() {
             base.OnAddedToScene();
 
-            AddComponent(new TiledMapRenderer(map) {RenderLayer = Constants.Layer_Map });
+            AddComponent(new TiledMapRenderer(map));
         }
     }
 }

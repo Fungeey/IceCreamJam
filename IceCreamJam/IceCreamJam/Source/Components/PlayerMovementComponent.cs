@@ -159,9 +159,6 @@ namespace IceCreamJam.Components {
 			// TODO: remove hack to instantly stop movement when rammed into a building
 			Vector2 movement = currentVelocity * Time.DeltaTime;
 			if (collider.CollidesWithAny(ref movement, out CollisionResult result)) {
-				if(result.Collider.IsTrigger)
-					return;
-
 				if (result.Collider.PhysicsLayer.IsFlagSet((int)Constants.PhysicsLayers.Buildings)) {
 					Speed = 0;
 				}

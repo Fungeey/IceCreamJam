@@ -7,6 +7,7 @@ namespace IceCreamJam.Entities {
             base.OnAddedToScene();
 
             AddComponent(new NPCComponent());
+            AddComponent(new RenderSorterComponent());
         }
     }
 }

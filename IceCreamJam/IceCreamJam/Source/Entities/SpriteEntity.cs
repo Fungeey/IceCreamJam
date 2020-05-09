@@ -7,7 +7,9 @@ namespace IceCreamJam.Entities {
         public SpriteRenderer renderer;
         public bool defaultVisible = true;
 
-        public SpriteEntity(Texture2D texture) : this(texture, 0, 0) { }
+        public SpriteEntity(Texture2D texture) : this(texture, 0, 0) {
+            Name = "SpriteEffectEntity";
+        }
 
         public SpriteEntity(Texture2D texture, int renderLayer, float layerDepth) {
             this.renderer = AddComponent(new SpriteRenderer(texture) {

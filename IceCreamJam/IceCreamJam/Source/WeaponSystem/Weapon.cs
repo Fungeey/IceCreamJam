@@ -34,8 +34,8 @@ namespace IceCreamJam.WeaponSystem {
 
         public virtual void InitializeRenderer() {
             renderer = new SpriteRenderer(Scene.Content.LoadTexture(texturePath)) {
-                RenderLayer = Constants.Layer_WeaponBase,
-                LayerDepth = 1f
+                RenderLayer = Constants.RenderLayer_Truck,
+                LayerDepth = 0.8f
             };
 
             AddComponent(renderer);

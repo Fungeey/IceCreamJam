@@ -9,6 +9,8 @@ namespace IceCreamJam.Systems {
     class CivilianSystem : EntitySystem {
         private Truck truck;
 
+        private const bool DebugSeekCrosshair = false;
+
         private const int approachRadius = 150;
         private const int stopRadius = 75;
         private const int awayRadius = 50;
@@ -23,6 +25,11 @@ namespace IceCreamJam.Systems {
 
             foreach(Entity e in entities) {
                 var civilian = (Civilian)e;
+
+                if(DebugSeekCrosshair) {
+                    civilian.Move((Scene.Camera.MouseToWorldPoint() - civilian.Position).Normalized());
+                    continue;
+                }
 
                 var distance = Vector2.Distance(truck.Position, civilian.Position);
                 if(distance <= 0)

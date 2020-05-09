@@ -64,19 +64,9 @@ namespace IceCreamJam.Components {
         public Node NextNode => path[CurrentNodeIndex + 1];
         public Node PreviousNode => path[CurrentNodeIndex - 1];
 
-        //public void FinishTurn() {
-        //    currentNode = TargetNextNode();
-        //}
-
         public void Update() {
             if(reevaluate || arrived)
                 ReevaluateGraph();
-        }
-
-        public override void DebugRender(Batcher batcher) {
-            base.DebugRender(batcher);
-
-            batcher.DrawCircle(Entity.Position, 100, color, 15);
         }
     }
 }

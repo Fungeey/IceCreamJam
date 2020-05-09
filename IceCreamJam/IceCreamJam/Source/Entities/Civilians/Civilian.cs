@@ -12,6 +12,7 @@ namespace IceCreamJam.Entities.Civilians {
 
         public Civilian(string texturePath) {
             this.texturePath = texturePath;
+            Name = "Civilian";
         }
 
         public override void OnAddedToScene() {
@@ -20,9 +21,8 @@ namespace IceCreamJam.Entities.Civilians {
             var texture = Scene.Content.LoadTexture(texturePath);
             var sprites = Sprite.SpritesFromAtlas(texture, 81, 60);
 
-            var animator = new SpriteAnimator();
+            var animator = new SpriteAnimator() { RenderLayer = Constants.RenderLayer_Civilian };
             animator.AddAnimation("Walk", 6, sprites.ToArray());
-            animator.RenderLayer = Constants.Layer_NPC;
             animator.Play("Walk");
 
             this.animator = AddComponent(animator);

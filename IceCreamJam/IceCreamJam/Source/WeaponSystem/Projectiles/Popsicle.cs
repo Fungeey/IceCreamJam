@@ -19,7 +19,7 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
 
         public override void SetupTextures() {
             var animator = AddComponent(new SpriteAnimator() {
-                RenderLayer = Constants.Layer_Bullets
+                RenderLayer = Constants.RenderLayer_Bullets
             });
 
             var texture = Scene.Content.LoadTexture(ContentPaths.Popsicle + "Popsicle_Fly.png");
@@ -40,7 +40,7 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
             var texture = Scene.Content.LoadTexture(ContentPaths.Popsicle_Shatter);
             var sprites = Sprite.SpritesFromAtlas(texture, 32, 23);
             
-            hitFX.animator.RenderLayer = Constants.Layer_Bullets;
+            hitFX.animator.RenderLayer = Constants.RenderLayer_Bullets;
             hitFX.animator.LayerDepth = 0.4f;
             
             hitFX.animator.AddAnimation("hit", Constants.GlobalFPS * 4, sprites.ToArray());

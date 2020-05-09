@@ -1,6 +1,7 @@
 ﻿using IceCreamJam.Components;
 
 using IceCreamJam.Entities;
+using IceCreamJam.Entities.Civilians;
 using IceCreamJam.Entities.Enemies;
 using IceCreamJam.Rendering;
 using IceCreamJam.RoadSystem;
@@ -24,9 +25,9 @@ namespace IceCreamJam.Scenes {
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
 
-
             SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAll);
             AddRenderer(new DefaultRenderer());
+            RenderableComponentList.CompareUpdatableOrder = new PositionBasedRenderSorter();
 
             AddEntityProcessor(new HomingProjectileSystem(new Matcher().All(typeof(HomingTargetComponent))));
             AddEntityProcessor(new CivilianSystem(new Matcher().All(typeof(CivilianComponent))));
@@ -38,10 +39,10 @@ namespace IceCreamJam.Scenes {
             truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) } );
             UICanvas = AddEntity(new UIManager());
 
-            //for(int i = 0; i < 5; i++) 
-            //    AddEntity(new Civilian(ContentPaths.NPC + $"NPC{i}.png") { Position = new Vector2(Screen.Width / 2 + i * 32, Screen.Height / 2) });
+            for(int i = 0; i < 5; i++) 
+                AddEntity(new Civilian(ContentPaths.NPC + $"NPC{i}.png") { Position = new Vector2(Screen.Width / 2 + i * 32, Screen.Height / 2) });
 
-            for(int i = 0; i < 0; i++) {
+            for(int i = 0; i < 2; i++) {
                 var d = Pool<Doctor>.Obtain();
                 d.Initialize(new Vector2(Nez.Random.NextInt(Screen.Width), Nez.Random.NextInt(Screen.Height)));
 
@@ -55,10 +56,17 @@ namespace IceCreamJam.Scenes {
 
             AddEntity(new Crosshair());
 
-            loader.Load(ContentPaths.SmallRoadTest);
-            Camera.MinimumZoom = 0.1f;
-            Camera.ZoomOut(0.75f);
+            loader.Load(ContentPaths.Test1);
+            Camera.ZoomIn(0.25f);
             Camera.AddComponent(new FollowCamera(truck));
+            
+        }
+
+        public override void Update() {
+            base.Update();
+
+            //if(InputManager.yAxis.Value != 0)
+            //    RenderableComponents.SetRenderLayerNeedsComponentSort(0);
         }
     }
 }

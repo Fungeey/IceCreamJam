@@ -13,7 +13,7 @@ namespace IceCreamJam.Entities.Enemies {
         public bool isNewEnemy = true;
 
         public Enemy() {
-            
+            Name = "Enemy";
         }
 
         public virtual void Initialize(Vector2 position) {

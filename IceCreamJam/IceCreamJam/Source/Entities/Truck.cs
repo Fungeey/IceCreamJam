@@ -13,7 +13,6 @@ namespace IceCreamJam.Entities {
 
 		public event Action<float> OnDamage;
 
-
 		public ArcadeRigidbody rb;
 
 		public override void OnAddedToScene() {
@@ -24,7 +23,8 @@ namespace IceCreamJam.Entities {
 			AddComponent(new PlayerInputComponent());
 			AddComponent(new PlayerStateMachine());
 
-			AddComponent(new SpriteAnimator() { RenderLayer = Constants.Layer_Truck, LayerDepth = 1 });
+			AddComponent(new SpriteAnimator() { RenderLayer = Constants.RenderLayer_Truck, LayerDepth = 1 });
+			AddComponent(new RenderSorterComponent());
 			AddComponent(new SetAnimator());
 			AddComponent(new PlayerAnimationComponent());
 			
@@ -41,14 +41,13 @@ namespace IceCreamJam.Entities {
 		public override void DebugRender(Batcher batcher) {
 			base.DebugRender(batcher);
 
-			batcher.DrawCircle(this.Position, 50, Color.Green);
-			batcher.DrawCircle(this.Position, 75, Color.Green);
-			batcher.DrawCircle(this.Position, 150, Color.Green);
+			//batcher.DrawCircle(this.Position, 50, Color.Green);
+			//batcher.DrawCircle(this.Position, 75, Color.Green);
+			//batcher.DrawCircle(this.Position, 150, Color.Green);
 		}
 
 		public void Damage(float damage) {
 			health -= damage;
-			Debug.Log(health);
 			OnDamage?.Invoke(health);
 
 			if(health <= 0)

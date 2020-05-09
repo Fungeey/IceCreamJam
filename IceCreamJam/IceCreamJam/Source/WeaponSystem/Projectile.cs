@@ -59,7 +59,7 @@ namespace IceCreamJam.WeaponSystem {
         public virtual void SetupTextures() {
             var texture = Scene.Content.LoadTexture(texturePath);
             this.renderer = AddComponent(new SpriteRenderer(texture) {
-                RenderLayer = Constants.Layer_Bullets
+                RenderLayer = Constants.RenderLayer_Bullets
             });
         }
 
