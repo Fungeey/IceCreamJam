@@ -50,7 +50,7 @@
     <Compile Include="Source\Components\HealthComponent.cs" />
     <Compile Include="Source\Components\RenderSorterComponent.cs" />
     <Compile Include="Source\Components\VehicleMoveComponent.cs" />
-    <Compile Include="Source\Components\VehiclePathfindingComponent.cs" />
+    <Compile Include="Source\Components\VehicleSystem\VehicleWanderComponent.cs" />
     <Compile Include="Source\Entities\TestVehicle.cs" />
     <Compile Include="Source\Rendering\PositionBasedRenderSorter.cs" />
     <Compile Include="Source\Rendering\RoadRenderer.cs" />

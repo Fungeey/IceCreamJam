@@ -1,4 +1,5 @@
-﻿using IceCreamJam.RoadSystem;
+﻿using IceCreamJam.Components.VehicleSystem;
+using IceCreamJam.RoadSystem;
 using Microsoft.Xna.Framework;
 using Nez;
 using System;
@@ -7,8 +8,8 @@ namespace IceCreamJam.Components {
     class VehicleMoveComponent : Component, IUpdatable {
 
         private Mover mover;
-        private VehiclePathfindingComponent pathfinding;
-        private float speed = 50;
+        private VehicleWanderComponent pathfinding;
+        private const float speed = 60;
 
         private Direction8 currentDirection;
 
@@ -22,13 +23,10 @@ namespace IceCreamJam.Components {
         public override void OnAddedToEntity() {
             base.OnAddedToEntity();
             mover = Entity.AddComponent(new Mover());
-            pathfinding = Entity.GetComponent<VehiclePathfindingComponent>();
+            pathfinding = Entity.GetComponent<VehicleWanderComponent>();
         }
 
         public void Update() {
-            if(pathfinding.arrived)
-                return;
-
             if(IsTurning)
                 DoTurn();
             else if(!IsWaiting)
@@ -36,10 +34,7 @@ namespace IceCreamJam.Components {
         }
         
         private void DoTurn() {
-            if(pathfinding.IsLastNode())
-                return;
-
-            var offset = pathfinding.currentNode.GetOffsetAfter(pathfinding.NextNode);
+            var offset = pathfinding.currentNode.GetOffsetAfter(pathfinding.nextNode);
             
             var turnTarget = pathfinding.currentNode.Position + offset;
             
@@ -64,17 +59,12 @@ namespace IceCreamJam.Components {
             currentDirection = Direction8Ext.FromVector2(distance);
 
             if(!IsBlocked())
-                mover.Move(direction.Normalized() * Time.DeltaTime * speed + GetAlignVector(TargetPosition), out var result);
+                mover.Move(direction.Normalized() * Time.DeltaTime * speed + GetAlignVector(TargetPosition)/3, out var result);
 
             if(distance.Length() < 10) {
                 // Arrived at intersection. Await for signal from Node to start.
-                // Only turn if there is another node.
-                if(!pathfinding.IsLastNode()) {
-                    pathfinding.currentNode.QueueVehicle(this);
-                    IsWaiting = true;
-                } else {
-                    pathfinding.arrived = true;
-                }
+                pathfinding.currentNode.QueueVehicle(this);
+                IsWaiting = true;
             }
         }
 
@@ -96,8 +86,8 @@ namespace IceCreamJam.Components {
         }
 
         private Vector2 GetOffset(Node node) {
-            if(!pathfinding.IsFirstNode())
-                return node.GetOffsetBefore(pathfinding.PreviousNode);
+            if(pathfinding.previousNode != null)
+                return node.GetOffsetBefore(pathfinding.previousNode);
             return currentDirection.RotateClockwise(2).ToVector2() * 32;
         }
 
@@ -106,7 +96,10 @@ namespace IceCreamJam.Components {
 
             batcher.DrawLine(Entity.Position, TargetPosition, Color.Red, 2);
             batcher.DrawLine(Entity.Position, Entity.Position + currentDirection.ToNormalizedVector2(50), Color.Blue, 3);
-            batcher.DrawCircle(pathfinding.currentNode.Position, 10, Color.Black);
+
+            //batcher.DrawCircle(pathfinding.previousNode.Position, 50, Color.Blue, 5);
+            //batcher.DrawCircle(pathfinding.currentNode.Position, 30, Color.Red, 5);
+            //batcher.DrawCircle(pathfinding.nextNode.Position, 20, Color.DarkGoldenrod, 5);
 
             if(IsTurning) {
                 //var target = pathfinding.currentNode.Position + pathfinding.currentNode.GetOffsetAfter(pathfinding.NextNode);

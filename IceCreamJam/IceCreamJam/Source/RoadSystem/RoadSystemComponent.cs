@@ -50,9 +50,8 @@ namespace IceCreamJam.RoadSystem {
 
             UpdateTarget();
 
-            if(Input.LeftMouseButtonPressed) {
-                Scene.AddEntity(new TestVehicle() { Position = GetRandomEmptyNode().Position });
-            }
+            //if(Input.LeftMouseButtonPressed)
+            //    Scene.AddEntity(new TestVehicle() { Position = GetRandomEmptyNode().Position });
         }
 
         private void UpdateTarget() {

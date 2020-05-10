@@ -38,6 +38,15 @@ namespace IceCreamJam.RoadSystem {
             if(crossOrder.Count != 0)
                 crossOrder.Peek().StartCrossing();
         }
+        
+        public Node GetRandomConnectedNode() {
+            return connections.ElementAt(Nez.Random.NextInt(connections.Count - 1)).Key;
+        }
+
+        public Node GetRandomConnectedNode(Node previous) {
+            var withoutPrevious = connections.Where(kvp => kvp.Key.Position != previous.Position).ToList();
+            return withoutPrevious.ElementAt(Nez.Random.NextInt(withoutPrevious.Count)).Key;
+        }
 
         public Vector2 GetOffsetBefore(Node previous) {
             var laneOffset = previous.GetDirectionTo(this).RotateClockwise(2).ToVector2() * 32;
@@ -78,6 +87,10 @@ namespace IceCreamJam.RoadSystem {
 
             if(roadSystem.truckTargetNode == this)
                 batcher.DrawHollowRect(new Rectangle((int)Position.X - 25, (int)Position.Y - 25, 50, 50), Color.White, 5);
+        }
+
+        public override void Update() {
+            base.Update();
         }
     }
 

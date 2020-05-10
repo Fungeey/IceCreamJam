@@ -19,13 +19,10 @@ namespace IceCreamJam.Scenes {
         public UIManager UICanvas;
 
         public override void Initialize() {
-            Physics.RaycastsStartInColliders = false;
-
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
 
-
-            SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAll);
+            SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAllPixelPerfect);
             AddRenderer(new DefaultRenderer());
             RenderableComponentList.CompareUpdatableOrder = new PositionBasedRenderSorter();
 
@@ -42,10 +39,10 @@ namespace IceCreamJam.Scenes {
             truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) });
             UICanvas = AddEntity(new UIManager());
 
-            for(int i = 0; i < 5; i++) 
+            for(int i = 0; i < 0; i++) 
                 AddEntity(new Civilian(ContentPaths.NPC + $"NPC{i}.png") { Position = new Vector2(Screen.Width / 2 + i * 32, Screen.Height / 2) });
 
-            for(int i = 0; i < 2; i++) {
+            for(int i = 0; i < 0; i++) {
                 var d = Pool<Doctor>.Obtain();
                 
                 d.Initialize(new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)));
@@ -54,15 +51,14 @@ namespace IceCreamJam.Scenes {
                     AddEntity(d);
             }
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 1; i++) {
                 AddEntity(new TestVehicle() { Position = new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)) });
             }
 
             AddEntity(new Crosshair());
-
             
             Camera.MinimumZoom = 0.1f;
-            Camera.ZoomIn(0.5f);
+            Camera.ZoomIn(0.25f);
             Camera.AddComponent(new FollowCamera(truck));
         }
     }
