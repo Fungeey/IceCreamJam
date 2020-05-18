@@ -49,8 +49,9 @@
     <Compile Include="Source\Components\AmmoComponent.cs" />
     <Compile Include="Source\Components\HealthComponent.cs" />
     <Compile Include="Source\Components\RenderSorterComponent.cs" />
-    <Compile Include="Source\Components\VehicleMoveComponent.cs" />
-    <Compile Include="Source\Components\VehicleSystem\VehicleWanderComponent.cs" />
+    <Compile Include="Source\Components\Vehicles\VehicleAnimationComponent.cs" />
+    <Compile Include="Source\Components\Vehicles\VehicleMoveComponent.cs" />
+    <Compile Include="Source\Components\Vehicles\VehicleWanderComponent.cs" />
     <Compile Include="Source\Entities\TestVehicle.cs" />
     <Compile Include="Source\Rendering\PositionBasedRenderSorter.cs" />
     <Compile Include="Source\Rendering\RoadRenderer.cs" />
@@ -215,6 +216,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Enemies\Doctor\DocRun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\NPC\Cars\CarMaster0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\NPC\NPC0.png">

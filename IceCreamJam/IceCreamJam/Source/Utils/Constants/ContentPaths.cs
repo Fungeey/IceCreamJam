@@ -14,6 +14,7 @@
         public const string Truck = Sprites + "Truck/";
         #region NPC
         public const string NPC = Sprites + "NPC/";
+        public const string Cars = NPC + "Cars/";
         #endregion
         #region Enemies
         public const string Enemies = Sprites + "Enemies/";

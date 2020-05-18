@@ -1,4 +1,4 @@
-﻿using IceCreamJam.Components.VehicleSystem;
+﻿using IceCreamJam.Components.Vehicles;
 using IceCreamJam.RoadSystem;
 using Microsoft.Xna.Framework;
 using Nez;
@@ -9,9 +9,9 @@ namespace IceCreamJam.Components {
 
         private Mover mover;
         private VehicleWanderComponent pathfinding;
-        private const float speed = 60;
+        private const float speed = 250;
 
-        private Direction8 currentDirection;
+        public Direction8 CurrentDirection { get; private set; }
 
         private bool IsTurning;
         private bool IsWaiting;
@@ -40,7 +40,7 @@ namespace IceCreamJam.Components {
             
             var distance = (turnTarget - Entity.Position);
             var direction = distance.Normalized();
-            currentDirection = Direction8Ext.FromVector2(distance);
+            CurrentDirection = Direction8Ext.FromVector2(distance);
             
             if(!IsBlocked())
                 mover.Move(direction * Time.DeltaTime * speed, out var result);
@@ -56,7 +56,7 @@ namespace IceCreamJam.Components {
         private void ApproachNextNode() {
             var distance = (TargetPosition - Entity.Position);
             var direction = distance.Normalized();
-            currentDirection = Direction8Ext.FromVector2(distance);
+            CurrentDirection = Direction8Ext.FromVector2(distance);
 
             if(!IsBlocked())
                 mover.Move(direction.Normalized() * Time.DeltaTime * speed + GetAlignVector(TargetPosition)/3, out var result);
@@ -74,7 +74,7 @@ namespace IceCreamJam.Components {
         }
 
         private bool IsBlocked() {
-            var hit = Physics.Linecast(Entity.Position, Entity.Position + currentDirection.ToNormalizedVector2(50));
+            var hit = Physics.Linecast(Entity.Position, Entity.Position + CurrentDirection.ToNormalizedVector2(50));
             return hit.Collider != null;
         }
 
@@ -82,20 +82,20 @@ namespace IceCreamJam.Components {
             // Move to be in line with the current target position
             // If moving vertically, adjust horizontally to be in line.
             // If moving horizontally, adjust vertically to be in line.
-            return currentDirection.IsVertical() ? new Vector2(target.X - Entity.Position.X, 0) : new Vector2(0, target.Y - Entity.Position.Y);
+            return CurrentDirection.IsVertical() ? new Vector2(target.X - Entity.Position.X, 0) : new Vector2(0, target.Y - Entity.Position.Y);
         }
 
         private Vector2 GetOffset(Node node) {
             if(pathfinding.previousNode != null)
                 return node.GetOffsetBefore(pathfinding.previousNode);
-            return currentDirection.RotateClockwise(2).ToVector2() * 32;
+            return CurrentDirection.RotateClockwise(2).ToVector2() * 32;
         }
 
         public override void DebugRender(Batcher batcher) {
             base.DebugRender(batcher);
 
             batcher.DrawLine(Entity.Position, TargetPosition, Color.Red, 2);
-            batcher.DrawLine(Entity.Position, Entity.Position + currentDirection.ToNormalizedVector2(50), Color.Blue, 3);
+            batcher.DrawLine(Entity.Position, Entity.Position + CurrentDirection.ToNormalizedVector2(50), Color.Blue, 3);
 
             //batcher.DrawCircle(pathfinding.previousNode.Position, 50, Color.Blue, 5);
             //batcher.DrawCircle(pathfinding.currentNode.Position, 30, Color.Red, 5);

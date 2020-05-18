@@ -33,7 +33,7 @@ namespace IceCreamJam.Scenes {
         }
 
         public override void OnStart() {
-            loader.Load(ContentPaths.SmallRoadTest);
+            loader.Load(ContentPaths.Test1);
             var map = loader.tiledMap.map;
 
             truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) });
@@ -51,14 +51,14 @@ namespace IceCreamJam.Scenes {
                     AddEntity(d);
             }
 
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 10; i++) {
                 AddEntity(new TestVehicle() { Position = new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)) });
             }
 
             AddEntity(new Crosshair());
             
             Camera.MinimumZoom = 0.1f;
-            Camera.ZoomIn(0.25f);
+            Camera.ZoomOut(0.75f);
             Camera.AddComponent(new FollowCamera(truck));
         }
     }

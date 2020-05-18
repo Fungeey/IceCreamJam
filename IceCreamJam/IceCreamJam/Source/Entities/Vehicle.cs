@@ -1,5 +1,5 @@
 ﻿using IceCreamJam.Components;
-using IceCreamJam.Components.VehicleSystem;
+using IceCreamJam.Components.Vehicles;
 using Nez;
 
 namespace IceCreamJam.Entities {

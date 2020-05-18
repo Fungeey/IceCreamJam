@@ -1,7 +1,7 @@
 ﻿using IceCreamJam.RoadSystem;
 using Nez;
 
-namespace IceCreamJam.Components.VehicleSystem {
+namespace IceCreamJam.Components.Vehicles {
 
     /// <summary>
     /// A component to pilot a vehicle around aimlessly
