@@ -11,6 +11,10 @@ namespace IceCreamJam.Entities {
 	class Truck : Entity {
 		public const float MaxHealth = 50;
 
+
+		public Vector2 getPos() {
+			return Position;
+		}
 		public override void OnAddedToScene() {
 			Name = "Truck";
 

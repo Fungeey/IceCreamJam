@@ -15,19 +15,21 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the acceleration of the vehicle in pixels/second/second
 		/// </summary>
-		public float acceleration = 40f;
+		public float acceleration = 800f;
 		/// <summary>
 		/// the normal maximum speed of the vehicle in pixels/second
+		/// 
+		/// CHANGED FROM public float acceleration = 40f;
 		/// </summary>
 		public float normalMaxSpeed = 200f;
 		/// <summary>
 		/// the deceleration of the vehicle when passively coasting in pixels/second/second
 		/// </summary>
-		public float coastDeceleration = 30f;
+		public float coastDeceleration = 800f;
 		/// <summary>
 		/// the deceleration of the vehicle when actively braking in pixels/second/second
 		/// </summary>
-		public float brakeDeceleration = 80f;
+		public float brakeDeceleration = 800f;
 
 		/// <summary>
 		/// the base time per increment while turning in seconds
@@ -41,30 +43,36 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the maximum speed of the vehicle during a full dash in pixels/second
 		/// </summary>
-		public float fullDashMaxSpeed = 300f;
+		public float fullDashMaxSpeed = 400f;
 		/// <summary>
 		/// the cooldown time before a full dash can be used again in seconds
 		/// </summary>
-		public float fullDashCooldownTime = 10f;
+		public float fullDashCooldownTime = 5f;
 		/// <summary>
 		/// the duration of a full dash in seconds
 		/// </summary>
-		public float fullDashTime = 4f;
+		public float fullDashTime = 0.5f;
 		/// <summary>
 		/// the duration of the lingering effects of a full dash in seconds
 		/// </summary>
-		public float fullDashLingerTime = 1f;
+		public float fullDashLingerTime = 0.5f;
 		/// <summary>
 		/// the duration and cooldown time of a mini dash in seconds
 		/// </summary>
 		public float miniDashTime = 1f;
-
+		/// <summary>
+		/// A NEW THING
+		/// </summary>
+		public static Vector2 currentVelocity = new Vector2(0,1);
 
 		private Direction8 targetHeading;
 		private Direction8 CurrentHeading {
 			get => direction.Direction; set => direction.Direction = value;
 		}
 		private Vector2 currentDirectionVector = new Vector2(1, 0);
+
+		public bool isTurning = false;
+		public static bool turning; 
 
 		[Inspectable]
 		private State state;
@@ -76,10 +84,12 @@ namespace IceCreamJam.Components {
 
 		[Inspectable]
 		public float Speed { get; private set; } = 0f;
+		public static float SpeedCopy = 0f;
 		[Inspectable]
 		public float MaxSpeed { get; private set; } = 200f;
 		[Inspectable]
 		private float turnTimer = 0;
+		public int updateTimer = 100;
 
 		[Inspectable]
 		private float fullDashCooldownTimer;
@@ -108,6 +118,7 @@ namespace IceCreamJam.Components {
 		private void Direction_OnDirectionChange(Direction8 obj) {
 			currentDirectionVector = obj.ToVector2().Normalized();
 		}
+
 
 		public void Update() {
 			if (state == State.Normal) {
@@ -148,7 +159,7 @@ namespace IceCreamJam.Components {
 				miniDashTimer = Mathf.Approach(miniDashTimer, 0, Time.DeltaTime);
 			}
 
-			Vector2 currentVelocity = currentDirectionVector * Speed;
+			currentVelocity = currentDirectionVector * Speed;
 			rb.Velocity = currentVelocity;
 
 			// TODO: remove hack to instantly stop movement when rammed into a building
@@ -160,6 +171,7 @@ namespace IceCreamJam.Components {
 			}
 		}
 
+		/*
 		private float CalculateCurrentSpeed(float speed) {
 			if (InputManager.brake) {
 				return Mathf.Approach(speed, 0, brakeDeceleration * Time.DeltaTime);
@@ -172,7 +184,34 @@ namespace IceCreamJam.Components {
 				return Mathf.Approach(speed, 0, coastDeceleration * Time.DeltaTime);
 			}
 		}
+		*/
+		/// <summary>
+		/// returns current velocity.
+		/// </summary>
+		/// <returns></returns>
+		public static Vector2 getCurrentVelocity() {
+			return currentVelocity;
+		}
 
+		private float CalculateCurrentSpeed(float speed) {
+			if (InputManager.brake) {
+				acceleration = 800f;
+				return Mathf.Approach(speed, 0, brakeDeceleration * Time.DeltaTime);
+			} else if (playerInput.InputHeld) {
+				if (acceleration < 80f) {
+					acceleration += 2;
+				} else {
+					acceleration = 800f;
+				}
+				if (speed < kickstartSpeed) speed = kickstartSpeed;
+				if (CurrentHeading == targetHeading)
+					return Mathf.Approach(speed, MaxSpeed, acceleration * Time.DeltaTime);
+				else return speed;
+			} else {
+				acceleration = 800f;
+				return Mathf.Approach(speed, 0, coastDeceleration * Time.DeltaTime);
+			}
+		}
 		private int CalculateRotationOffset(int difference) {
 			if (Speed == 0) {
 				return difference;

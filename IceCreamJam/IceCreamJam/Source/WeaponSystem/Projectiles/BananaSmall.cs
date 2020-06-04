@@ -1,9 +1,12 @@
 ﻿using IceCreamJam.Entities.Enemies;
+using IceCreamJam.Components;
 using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Sprites;
 using Nez.Textures;
-
+using IceCreamJam.Entities;
+using IceCreamJam.Scenes;
+using System;
 namespace IceCreamJam.WeaponSystem.Projectiles {
     class BananaSmall : Projectile {
 
@@ -11,11 +14,16 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
         private Collider otherCollider;
         private float startAngle;
         private float rotateAngle;
+        private Vector2 velocity = new Vector2(0, 0);
+        //New stuff
+        private Vector2 mouse = new Vector2 (100,0);
+        private Vector2 truckPos = new Vector2(0,0);
 
         public override void Initialize(Vector2 direction, Vector2 position) {
             base.Initialize(direction, position);
             this.Name = "BananaSmall";
-            this.speed = 300;
+            Debug.Log(mouse);
+            this.speed = Vector2.Distance(truckPos, mouse) *(1.5f);
             this.damage = 1;
             this.lifetime = 2;
             this.hits = 0;
@@ -45,12 +53,15 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
         }
 
         public override Vector2 CalculateVector() {
-            return new Vector2(Mathf.Cos(rotateAngle), Mathf.Sin(rotateAngle)) * speed * Time.DeltaTime;
+            velocity = new Vector2(Mathf.Cos(rotateAngle), Mathf.Sin(rotateAngle)) * speed * Time.DeltaTime;
+            return velocity + PlayerMovementComponent.getCurrentVelocity() * Time.DeltaTime;
         }
 
         public override void Update() {
             base.Update();
             CheckCollision();
+            mouse = Scene.Camera.MouseToWorldPoint();
+            truckPos = (Scene as MainScene).truck.Position;
 
             // Rotate
             rotateAngle = startAngle + lifeComponent.progress * Mathf.Deg2Rad * 360;
@@ -77,7 +88,8 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
 
         public override void OnAddedToScene() {
             base.OnAddedToScene();
-
+            mouse = Scene.Camera.MouseToWorldPoint();
+            truckPos = (Scene as MainScene).truck.Position;
             (collider as CircleCollider).SetRadius(12);
             collider.LocalOffset = Vector2.Zero;
             collider.IsTrigger = true;

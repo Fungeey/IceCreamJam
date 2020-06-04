@@ -63,12 +63,12 @@ namespace IceCreamJam.WeaponSystem {
             });
         }
 
-        /// <summary>
+        /// <summary>saa
         /// Calculate path (straight, boomerang, homing, aoe, etc)
         /// </summary>
         /// <returns>The vector to move the projectile by</returns>
         public virtual Vector2 CalculateVector() {
-            return direction * speed * Time.DeltaTime;
+            return  direction * speed * Time.DeltaTime;
         }
 
         public override void Update() {

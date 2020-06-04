@@ -13,6 +13,12 @@ namespace IceCreamJam.Components {
 
 		public event Action<Direction8> OnInputStart;
 		
+		public bool directionChange() {
+			if (previnputHeld != currInputHeld) {
+				return true;
+			}
+			return false;
+		}
 		public void Update() {
 			// poll the static input manager for current input information
 			bool? isNorth = InputManager.yAxis.Value == 0 ? null : (bool?)(InputManager.yAxis.Value < 0);
