@@ -15,7 +15,7 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the acceleration of the vehicle in pixels/second/second
 		/// </summary>
-		public float acceleration = 20f;
+		public float acceleration = 800f;
 		/// <summary>
 		/// the normal maximum speed of the vehicle in pixels/second
 		/// 
@@ -25,11 +25,11 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the deceleration of the vehicle when passively coasting in pixels/second/second
 		/// </summary>
-		public float coastDeceleration = 30f;
+		public float coastDeceleration = 800f;
 		/// <summary>
 		/// the deceleration of the vehicle when actively braking in pixels/second/second
 		/// </summary>
-		public float brakeDeceleration = 120f;
+		public float brakeDeceleration = 800f;
 
 		/// <summary>
 		/// the base time per increment while turning in seconds
@@ -43,19 +43,19 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the maximum speed of the vehicle during a full dash in pixels/second
 		/// </summary>
-		public float fullDashMaxSpeed = 300f;
+		public float fullDashMaxSpeed = 400f;
 		/// <summary>
 		/// the cooldown time before a full dash can be used again in seconds
 		/// </summary>
-		public float fullDashCooldownTime = 10f;
+		public float fullDashCooldownTime = 5f;
 		/// <summary>
 		/// the duration of a full dash in seconds
 		/// </summary>
-		public float fullDashTime = 4f;
+		public float fullDashTime = 0.5f;
 		/// <summary>
 		/// the duration of the lingering effects of a full dash in seconds
 		/// </summary>
-		public float fullDashLingerTime = 1f;
+		public float fullDashLingerTime = 0.5f;
 		/// <summary>
 		/// the duration and cooldown time of a mini dash in seconds
 		/// </summary>
@@ -119,23 +119,8 @@ namespace IceCreamJam.Components {
 			currentDirectionVector = obj.ToVector2().Normalized();
 		}
 
-		private void superHackyCode() {
-			if (playerInput.directionChange()) {
-				isTurning = true;
-			} else {
-				if (updateTimer == 0) {
-					isTurning = false;
-					updateTimer = 50;
-				} else {
-					updateTimer--;
-				}
-			}
-			SpeedCopy = Speed;
-			turning = isTurning;
-		}
 
 		public void Update() {
-			superHackyCode();
 			if (state == State.Normal) {
 				if (InputManager.dash.IsDown) {
 					if (fullDashCooldownTimer == 0 && Speed + initialDashBoost >= normalMaxSpeed) {
@@ -213,20 +198,20 @@ namespace IceCreamJam.Components {
 
 		private float CalculateCurrentSpeed(float speed) {
 			if (InputManager.brake) {
-				acceleration = 20f;
+				acceleration = 800f;
 				return Mathf.Approach(speed, 0, brakeDeceleration * Time.DeltaTime);
 			} else if (playerInput.InputHeld) {
 				if (acceleration < 80f) {
 					acceleration += 2;
 				} else {
-					acceleration = 80f;
+					acceleration = 800f;
 				}
 				if (speed < kickstartSpeed) speed = kickstartSpeed;
 				if (CurrentHeading == targetHeading)
 					return Mathf.Approach(speed, MaxSpeed, acceleration * Time.DeltaTime);
 				else return speed;
 			} else {
-				acceleration = 20f;
+				acceleration = 800f;
 				return Mathf.Approach(speed, 0, coastDeceleration * Time.DeltaTime);
 			}
 		}
