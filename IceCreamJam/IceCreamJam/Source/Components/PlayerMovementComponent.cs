@@ -51,11 +51,11 @@ namespace IceCreamJam.Components {
 		/// <summary>
 		/// the duration of a full dash in seconds
 		/// </summary>
-		public float fullDashTime = 0.5f;
+		public float fullDashTime = 1f;
 		/// <summary>
 		/// the duration of the lingering effects of a full dash in seconds
 		/// </summary>
-		public float fullDashLingerTime = 0.5f;
+		public float fullDashLingerTime = 1f;
 		/// <summary>
 		/// the duration and cooldown time of a mini dash in seconds
 		/// </summary>
