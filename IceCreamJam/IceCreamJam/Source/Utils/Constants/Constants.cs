@@ -20,12 +20,13 @@ namespace IceCreamJam {
 
         [Flags]
         public enum PhysicsLayers {
-            None = 0,
+            Other = 0,
             Buildings = 1,
             Player = 2,
             NPC = 4,
             PlayerProjectiles = 8,
-            EnemyProjectiles = 16
+            EnemyProjectiles = 16,
+            Enemy = 32
         }
 
         public const int RenderLayer_Bullets = 9;

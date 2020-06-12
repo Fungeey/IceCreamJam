@@ -9,7 +9,7 @@ namespace IceCreamJam.Components {
 
         private Mover mover;
         private VehicleWanderComponent pathfinding;
-        private const float speed = 250;
+        private const float speed = 80;
 
         public Direction8 CurrentDirection { get; private set; }
 

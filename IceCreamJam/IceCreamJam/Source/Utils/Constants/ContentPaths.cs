@@ -12,8 +12,13 @@
         public const string EmptySprite = Sprites + "Empty.png";
 
         public const string Truck = Sprites + "Truck/";
-        #region NPC
-        public const string NPC = Sprites + "NPC/";
+        #region Treats
+        public const string Treats = Sprites + "Treats/";
+        public const string TestTreat = Treats + "TestTreat.png";
+		#endregion
+		#region NPC
+		public const string NPC = Sprites + "NPC/";
+        public const string CivilianSheet = NPC + "Civilian_Sheet.png";
         public const string Cars = NPC + "Cars/";
         #endregion
         #region Enemies

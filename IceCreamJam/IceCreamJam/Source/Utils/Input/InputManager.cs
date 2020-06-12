@@ -20,6 +20,7 @@ namespace IceCreamJam {
 
 		public static readonly VirtualButton brake;
 		public static readonly VirtualButton dash;
+		public static readonly VirtualButton dispense;
 
 		public static readonly VirtualButton shoot;
 		public static readonly VirtualIntegerAxis switchWeapon;
@@ -44,6 +45,10 @@ namespace IceCreamJam {
 			dash = new VirtualButton();
 			dash.AddKeyboardKey(Keys.Space);
 			// TODO: add gamepad button for dashing
+
+			dispense = new VirtualButton();
+			dispense.AddKeyboardKey(Keys.F);
+			// TODO: add gamepad button for dispensing
 
 			shoot = new VirtualButton();
 			shoot.AddMouseLeftButton();

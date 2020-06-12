@@ -28,18 +28,11 @@ namespace IceCreamJam.Entities {
 
 			AddComponent(new ArcadeRigidbody() { ShouldUseGravity = false, Elasticity = 0 });
 			AddComponent(new PlayerMovementComponent());
+			AddComponent(new PlayerDispenseComponent());
 
 			AddComponent(new PlayerWeaponComponent(new ScoopGun(), new PopsicleGun(), new BananaBigGun(), new BananaSmallGun()));
 
 			AddComponent(new PlayerStateMachine());
-		}
-
-		public override void DebugRender(Batcher batcher) {
-			base.DebugRender(batcher);
-
-			//batcher.DrawCircle(this.Position, 50, Color.Green);
-			//batcher.DrawCircle(this.Position, 75, Color.Green);
-			//batcher.DrawCircle(this.Position, 150, Color.Green);
 		}
 	}
 }

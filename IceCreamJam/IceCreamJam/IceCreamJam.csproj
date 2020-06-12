@@ -47,12 +47,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Components\AmmoComponent.cs" />
+    <Compile Include="Source\Components\NPC\CivilianStateMachine.cs" />
     <Compile Include="Source\Components\HealthComponent.cs" />
+    <Compile Include="Source\Components\Player\PlayerDispenseComponent.cs" />
     <Compile Include="Source\Components\RenderSorterComponent.cs" />
+    <Compile Include="Source\Components\TreatComponent.cs" />
     <Compile Include="Source\Components\Vehicles\VehicleAnimationComponent.cs" />
     <Compile Include="Source\Components\Vehicles\VehicleMoveComponent.cs" />
     <Compile Include="Source\Components\Vehicles\VehicleWanderComponent.cs" />
     <Compile Include="Source\Entities\TestVehicle.cs" />
+    <Compile Include="Source\Entities\Treat.cs" />
     <Compile Include="Source\Rendering\PositionBasedRenderSorter.cs" />
     <Compile Include="Source\Rendering\RoadRenderer.cs" />
     <Compile Include="Source\RoadSystem\MapNodeGenerator.cs" />
@@ -67,11 +71,11 @@
     <Compile Include="Source\Components\ColliderManager.cs" />
     <Compile Include="Source\Components\EntitySpringComponent.cs" />
     <Compile Include="Source\Components\HomingTargetComponent.cs" />
-    <Compile Include="Source\Components\CivilianComponent.cs" />
-    <Compile Include="Source\Components\NPCComponent.cs" />
+    <Compile Include="Source\Components\NPC\CivilianComponent.cs" />
+    <Compile Include="Source\Components\NPC\NPCComponent.cs" />
     <Compile Include="Source\Components\DirectionComponent.cs" />
-    <Compile Include="Source\Components\PlayerMovementComponent.cs" />
-    <Compile Include="Source\Components\PlayerStateMachine.cs" />
+    <Compile Include="Source\Components\Player\PlayerMovementComponent.cs" />
+    <Compile Include="Source\Components\Player\PlayerStateMachine.cs" />
     <Compile Include="Source\Components\ProjectileLifeComponent.cs" />
     <Compile Include="Source\Utils\Input\ButtonAxis.cs" />
     <Compile Include="Source\Utils\Constants\Constants.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="Source\Entities\NPC.cs" />
     <Compile Include="Source\Entities\SpriteEntity.cs" />
     <Compile Include="Source\Entities\Truck.cs" />
-    <Compile Include="Source\Components\PlayerInputComponent.cs" />
+    <Compile Include="Source\Components\Player\PlayerInputComponent.cs" />
     <Compile Include="Source\Systems\HomingProjectileSystem.cs" />
     <Compile Include="Source\Utils\Input\InputManager.cs" />
     <Compile Include="Source\Scenes\MainScene.cs" />
@@ -218,6 +222,12 @@
     <Content Include="Content\Sprites\Enemies\Doctor\DocRun.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\NPC\Civilian_Sheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Treats\TestTreat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\NPC\Cars\CarMaster1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -240,21 +250,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\NPC\Cars\CarMaster0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\NPC\NPC0.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\NPC\NPC1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\NPC\NPC2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\NPC\NPC3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Sprites\NPC\NPC4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Truck\truck.png">
