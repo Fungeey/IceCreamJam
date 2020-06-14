@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IceCreamJam.RoadSystem {
 	class CivilianCarSpawnSystem : SceneComponent {
-		public int targetCarNumber = 1;
+		public int targetCarNumber = 10;
 		public List<CivilianCar> cars;
 		public List<Vector2> spawnPoints;
 		private ICoroutine spawnRoutine;

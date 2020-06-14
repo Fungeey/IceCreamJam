@@ -57,7 +57,7 @@ namespace IceCreamJam.Scenes {
             Camera.MinimumZoom = 0.1f;
             Camera.ZoomIn(0.25f);
             Camera.AddComponent(new CameraFollowComponent(Camera, truck) {
-                bounds = loader.cameraBounds
+                bounds = loader.mapBounds
             });
         }
     }

@@ -8,7 +8,7 @@ using System;
 namespace IceCreamJam.Source.RoadSystem {
 	class CivilianCarStateMachine : Component, IUpdatable {
 
-		public const bool doDebugRender = true;
+		public const bool doDebugRender = false;
 		private const float speed = 80;
 		private const float checkDistance = 64;
 

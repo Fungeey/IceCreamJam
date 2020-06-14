@@ -27,11 +27,10 @@ namespace IceCreamJam.Source.Components {
 		public void Update() {
 			var lerpPos = (target.Position - Entity.Position) / lerpSmoothness;
 
-			var halfScreen = new Vector2(camera.Bounds.Width, camera.Bounds.Height) * 0.5f;
-			var cameraMax = new Vector2(bounds.X + bounds.Width - halfScreen.X, bounds.Y + bounds.Height - halfScreen.Y);
+			var halfScreen = camera.Bounds.Size * 0.5f;
 
 			if(doClampBounds) {
-				camera.Position = Vector2.Clamp(Entity.Position + lerpPos, new Vector2(bounds.X, bounds.Y) + halfScreen, cameraMax) + GetMouseOffset();
+				camera.Position = Vector2.Clamp(Entity.Position + lerpPos, bounds.Location + halfScreen, bounds.Max - halfScreen) + GetMouseOffset();
 				return;
 			}
 			camera.Position = Entity.Position + lerpPos + GetMouseOffset();

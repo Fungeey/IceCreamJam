@@ -10,8 +10,9 @@ namespace IceCreamJam.Tiled {
 
         public TiledMap tiledMap;
         public event Action OnLoad;
+		public bool mapIsLoaded;
 
-        public RectangleF cameraBounds;
+		public RectangleF mapBounds;
 		public List<Vector2> carSpawnPoints;
 
         public override void OnEnabled() {
@@ -25,6 +26,7 @@ namespace IceCreamJam.Tiled {
 			LoadSceneInfo();
 			LoadBuildings();
 			OnLoad?.Invoke();
+			mapIsLoaded = true;
 		}
 
 		private void LoadSceneInfo() {
@@ -39,7 +41,7 @@ namespace IceCreamJam.Tiled {
 					continue;
 
 				if(obj.Name == Constants.TiledInfoCameraBounds)
-					cameraBounds = new RectangleF(obj.X, obj.Y, obj.Width, obj.Height);
+					mapBounds = new RectangleF(obj.X, obj.Y, obj.Width, obj.Height);
 
 				if(obj.Name == Constants.TiledInfoCarSpawn)
 					carSpawnPoints.Add(new Vector2(obj.X, obj.Y));
