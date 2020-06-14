@@ -7,10 +7,18 @@ namespace IceCreamJam {
         #region Tiled
         public const string TiledLayerBackground = "Background";
         public const string TiledLayerBuildings = "Buildings";
+        public const string TiledLayerSceneInfo = "SceneInfo";
+
         public const int TiledCellSize = 32;
+        
+        public const string TiledPropertyInfoType = "InfoType";
+        public const string TiledInfoCameraBounds = "CameraBounds";
+
         public const string TiledPropertyID = "TileID";
         public const string TiledIDBuilding = "Building";
         public const string TiledIDSidewalk = "Sidewalk";
+
+
         public const string TiledIDRoad = "Road";
         public const string TiledIDGrass = "Grass";
         public const string TiledIDIntersection = "Intersection";

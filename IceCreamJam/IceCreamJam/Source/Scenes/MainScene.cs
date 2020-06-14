@@ -4,6 +4,7 @@ using IceCreamJam.Entities.Civilians;
 using IceCreamJam.Entities.Enemies;
 using IceCreamJam.Rendering;
 using IceCreamJam.RoadSystem;
+using IceCreamJam.Source.Components;
 using IceCreamJam.Systems;
 using IceCreamJam.Tiled;
 using IceCreamJam.UI;
@@ -59,7 +60,9 @@ namespace IceCreamJam.Scenes {
             
             Camera.MinimumZoom = 0.1f;
             Camera.ZoomIn(0.25f);
-            Camera.AddComponent(new FollowCamera(truck));
+            Camera.AddComponent(new CameraFollowComponent(Camera, truck) {
+                bounds = loader.cameraBounds
+            });
         }
     }
 }
