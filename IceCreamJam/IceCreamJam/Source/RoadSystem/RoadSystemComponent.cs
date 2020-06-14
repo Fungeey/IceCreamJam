@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace IceCreamJam.RoadSystem {
-    class RoadSystemComponent : SceneComponent {
+	class RoadSystemComponent : SceneComponent {
 
         public List<Node> nodes;
         private TilemapLoader mapLoader;
@@ -17,6 +17,9 @@ namespace IceCreamJam.RoadSystem {
         public WeightedRoadGraph graph;
         public Node truckTargetNode;
         public event Action OnTargetChange;
+
+        private CivilianCarSpawnSystem carSpawner;
+        private Action carSpawnerStart;
 
         public RoadSystemComponent() { }
 
@@ -27,9 +30,19 @@ namespace IceCreamJam.RoadSystem {
             mapLoader.OnLoad += RegisterNodes;
 
             graph = new WeightedRoadGraph();
+
+            mapLoader.OnLoad += carSpawnerStart = () => carSpawner.Start(mapLoader.carSpawnPoints);
+            carSpawner = new CivilianCarSpawnSystem();
+            Scene.AddSceneComponent(carSpawner);
         }
 
-        private void RegisterNodes() {
+		public override void OnRemovedFromScene() {
+			base.OnRemovedFromScene();
+            mapLoader.OnLoad -= RegisterNodes;
+            mapLoader.OnLoad -= carSpawnerStart;
+        }
+
+		private void RegisterNodes() {
             nodes = MapNodeGenerator.GenerateNodes(mapLoader.tiledMap.map);
             foreach(Node node in nodes) {
                 Scene.AddEntity(node);
@@ -49,24 +62,21 @@ namespace IceCreamJam.RoadSystem {
             }
 
             UpdateTarget();
-
-            //if(Input.LeftMouseButtonPressed)
-            //    Scene.AddEntity(new TestVehicle() { Position = GetRandomEmptyNode().Position });
         }
 
         private void UpdateTarget() {
-            var closestNode = GetNodeClosestTo(Scene.FindEntity("Crosshair"));
+            var closestNode = GetNodeClosestTo(Scene.FindEntity("Crosshair").Position);
             if(truckTargetNode != closestNode)
                 OnTargetChange?.Invoke();
 
             truckTargetNode = closestNode;
         }
 
-        public Node GetNodeClosestTo(Entity target) {
+        public Node GetNodeClosestTo(Vector2 position) {
             float minDistance = float.MaxValue;
             Node closestNode = null;
             foreach(Node node in nodes) {
-                var dis = Vector2.DistanceSquared(node.Position, target.Position);
+                var dis = Vector2.DistanceSquared(node.Position, position);
                 if(dis < minDistance) {
                     minDistance = dis;
                     closestNode = node;

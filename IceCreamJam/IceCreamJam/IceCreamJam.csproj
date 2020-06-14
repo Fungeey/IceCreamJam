@@ -54,12 +54,12 @@
     <Compile Include="Source\Components\RenderSorterComponent.cs" />
     <Compile Include="Source\Components\TreatComponent.cs" />
     <Compile Include="Source\Components\Vehicles\VehicleAnimationComponent.cs" />
-    <Compile Include="Source\Components\Vehicles\VehicleMoveComponent.cs" />
-    <Compile Include="Source\Components\Vehicles\VehicleWanderComponent.cs" />
-    <Compile Include="Source\Entities\TestVehicle.cs" />
+    <Compile Include="Source\Entities\CivilianCar.cs" />
     <Compile Include="Source\Entities\Treat.cs" />
     <Compile Include="Source\Rendering\PositionBasedRenderSorter.cs" />
     <Compile Include="Source\Rendering\RoadRenderer.cs" />
+    <Compile Include="Source\RoadSystem\CivilianCarSpawnSystem.cs" />
+    <Compile Include="Source\RoadSystem\CivilianCarStateMachine.cs" />
     <Compile Include="Source\RoadSystem\MapNodeGenerator.cs" />
     <Compile Include="Source\RoadSystem\Node.cs" />
     <Compile Include="Source\RoadSystem\RoadSystemComponent.cs" />

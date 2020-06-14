@@ -3,13 +3,16 @@ using Microsoft.Xna.Framework;
 using Nez;
 using Nez.Tiled;
 using System;
+using System.Collections.Generic;
 
 namespace IceCreamJam.Tiled {
     class TilemapLoader : SceneComponent {
 
         public TiledMap tiledMap;
         public event Action OnLoad;
+
         public RectangleF cameraBounds;
+		public List<Vector2> carSpawnPoints;
 
         public override void OnEnabled() {
             base.OnEnabled();
@@ -26,13 +29,20 @@ namespace IceCreamJam.Tiled {
 
 		private void LoadSceneInfo() {
 			var infoLayer = tiledMap.map.GetLayer<TmxObjectGroup>(Constants.TiledLayerSceneInfo);
+
+			carSpawnPoints = new List<Vector2>();
 			foreach(TmxObject obj in infoLayer.Objects) {
 				if(obj == null)
 					continue;
 
-				obj.Properties.TryGetValue(Constants.TiledPropertyInfoType, out var value);
-				if(!string.IsNullOrEmpty(value) && value == Constants.TiledInfoCameraBounds)
+				if(string.IsNullOrEmpty(obj.Name))
+					continue;
+
+				if(obj.Name == Constants.TiledInfoCameraBounds)
 					cameraBounds = new RectangleF(obj.X, obj.Y, obj.Width, obj.Height);
+
+				if(obj.Name == Constants.TiledInfoCarSpawn)
+					carSpawnPoints.Add(new Vector2(obj.X, obj.Y));
 			}
 		}
 

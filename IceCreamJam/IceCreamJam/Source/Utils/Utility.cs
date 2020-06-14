@@ -31,6 +31,11 @@ namespace IceCreamJam {
             return outList;
 		}
 
+        public static IList<T> Shuffle<T>(this IList<T> list) {
+            ListExt.Shuffle(list);
+            return list;
+        }
+
         public static SpriteAnimation SpriteAnimationFromParams(float frameRate, params Sprite[] sprites) {
             return new SpriteAnimation(sprites, frameRate);
         }

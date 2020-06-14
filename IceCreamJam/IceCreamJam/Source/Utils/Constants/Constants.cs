@@ -11,8 +11,8 @@ namespace IceCreamJam {
 
         public const int TiledCellSize = 32;
         
-        public const string TiledPropertyInfoType = "InfoType";
         public const string TiledInfoCameraBounds = "CameraBounds";
+        public const string TiledInfoCarSpawn = "CarSpawnPoint";
 
         public const string TiledPropertyID = "TileID";
         public const string TiledIDBuilding = "Building";

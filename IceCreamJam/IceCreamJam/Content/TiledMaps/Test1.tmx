@@ -501,30 +501,10 @@
 </data>
  </layer>
  <objectgroup id="5" name="SceneInfo">
-  <object id="3" x="548" y="384" width="1504" height="1632">
-   <properties>
-    <property name="InfoType" value="CameraBounds"/>
-   </properties>
-  </object>
-  <object id="9" x="32" y="480" width="32" height="32">
-   <properties>
-    <property name="InfoType" value="CarSpawnPoint"/>
-   </properties>
-  </object>
-  <object id="10" x="1408" y="2336" width="32" height="32">
-   <properties>
-    <property name="InfoType" value="CarSpawnPoint"/>
-   </properties>
-  </object>
-  <object id="11" x="2336" y="1248" width="32" height="32">
-   <properties>
-    <property name="InfoType" value="CarSpawnPoint"/>
-   </properties>
-  </object>
-  <object id="12" x="1408" y="32" width="32" height="32">
-   <properties>
-    <property name="InfoType" value="CarSpawnPoint"/>
-   </properties>
-  </object>
+  <object id="3" name="CameraBounds" x="548" y="384" width="1504" height="1632"/>
+  <object id="9" name="CarSpawnPoint" x="32" y="480" width="32" height="32"/>
+  <object id="10" name="CarSpawnPoint" x="1408" y="2336" width="32" height="32"/>
+  <object id="11" name="CarSpawnPoint" x="2336" y="1248" width="32" height="32"/>
+  <object id="12" name="CarSpawnPoint" x="1408" y="32" width="32" height="32"/>
  </objectgroup>
 </map>

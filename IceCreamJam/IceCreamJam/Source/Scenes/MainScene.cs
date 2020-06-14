@@ -37,7 +37,7 @@ namespace IceCreamJam.Scenes {
             loader.Load(ContentPaths.Test1);
             var map = loader.tiledMap.map;
 
-            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2, Screen.Height / 2) });
+            truck = AddEntity(new Truck() { Position = new Vector2(Screen.Width / 2 + 500, Screen.Height / 2 + 500) });
             UICanvas = AddEntity(new UIManager());
 
             for(int i = 1; i < 10; i++) 
@@ -50,10 +50,6 @@ namespace IceCreamJam.Scenes {
 
                 if (d.isNewEnemy)
                     AddEntity(d);
-            }
-
-            for (int i = 0; i < 10; i++) {
-                AddEntity(new TestVehicle() { Position = new Vector2(Random.NextInt(map.WorldWidth), Random.NextInt(map.WorldHeight)) });
             }
 
             AddEntity(new Crosshair());
