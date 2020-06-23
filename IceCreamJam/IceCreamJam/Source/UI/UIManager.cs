@@ -24,6 +24,7 @@ namespace IceCreamJam.UI {
 		private PlayerMovementComponent playerMove;
 		private HealthComponent playerHealth;
 		private AmmoComponent playerAmmo;
+		private PlayerStateMachine playerState;
 
 		private ShadedImage<UIMaskEffect> healthBar, dashBar, speedBar;
 		private SpriteDrawable speedRegular, speedMaxed;
@@ -47,6 +48,8 @@ namespace IceCreamJam.UI {
 
 			playerAmmo = truck.GetComponent<AmmoComponent>();
 			playerAmmo.OnAmmoChanged += a => UpdateAmmo(a);
+
+			playerState = truck.GetComponent<PlayerStateMachine>();
 
 			SetUpUI();
 		}
@@ -140,6 +143,7 @@ namespace IceCreamJam.UI {
 			Position = truck.Position;
 			if (playerMove != null)
 				UpdateSpeed(playerMove.Speed / playerMove.normalMaxSpeed);
+			UpdateDash(playerState.fullDashCooldownTimer / playerMove.fullDashCooldownTime);
 		}
 
 		private void UpdateWeaponIcons() {
@@ -153,16 +157,20 @@ namespace IceCreamJam.UI {
 		}
 
 		private void UpdateHealth(float health) {
-			(healthBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(health / Truck.MaxHealth, 0, 1);
+			healthBar.effect.Progress = 1 - Mathf.Clamp(health / Truck.MaxHealth, 0, 1);
 		}
 
 		private void UpdateSpeed(float speed) {
-			(speedBar.effect as UIMaskEffect).Progress = 1 - Mathf.Clamp(speed, 0, 1);
+			speedBar.effect.Progress = 1 - Mathf.Clamp(speed, 0, 1);
 
-			if (!playerMove.IsFullDashing)
+			if (!(playerState.stateMachine.CurrentState is PlayerStateMachine.States.StateFullDash))
 				speedBar.SetDrawable(speedRegular);
 			else
 				speedBar.SetDrawable(speedMaxed);
+		}
+
+		private void UpdateDash(float dash) {
+			dashBar.effect.Progress = Mathf.Clamp(dash, 0, 1);
 		}
 	}
 }
