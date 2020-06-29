@@ -25,7 +25,8 @@ namespace IceCreamJam.Entities {
             AddComponent(new PolygonCollider() { PhysicsLayer = (int)Constants.PhysicsLayers.Player, CollidesWithLayers = (int)Constants.PhysicsLayers.Buildings });
             AddComponent(new ColliderManager(ContentPaths.Content + "truckcollision.json"));
 
-            AddComponent(new ArcadeRigidbody() { ShouldUseGravity = false, Elasticity = 0 });
+            //AddComponent(new ArcadeRigidbody() { ShouldUseGravity = false, Elasticity = 0 });
+            AddComponent(new Mover());
             AddComponent(new PlayerMovementComponent());
             AddComponent(new PlayerDispenseComponent());
 

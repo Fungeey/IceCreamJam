@@ -5,7 +5,7 @@ using Nez;
 namespace IceCreamJam.Components {
     class PlayerMovementComponent : Component, IUpdatable {
         Collider collider;
-        ArcadeRigidbody rb;
+        Mover mover;
         DirectionComponent direction;
         PlayerInputComponent playerInput;
 
@@ -77,10 +77,11 @@ namespace IceCreamJam.Components {
         public float MaxSpeed { get; private set; } = 200f;
         [Inspectable]
         private float turnTimer = 0;
+        private SubpixelVector2 subpixel = new SubpixelVector2();
 
         public override void OnAddedToEntity() {
             collider = Entity.GetComponent<Collider>();
-            rb = Entity.GetComponent<ArcadeRigidbody>();
+            mover = Entity.GetComponent<Mover>();
             direction = Entity.GetComponent<DirectionComponent>();
             playerInput = Entity.GetComponent<PlayerInputComponent>();
             playerState = Entity.GetComponent<PlayerStateMachine>();
@@ -114,12 +115,12 @@ namespace IceCreamJam.Components {
                 Speed = Mathf.Lerp(stateMiniDash.miniDashInitialSpeed + initialDashBoost, stateMiniDash.miniDashInitialSpeed, 1 - stateMiniDash.miniDashTimer / miniDashTime);
             }
 
-            Vector2 currentVelocity = currentDirectionVector * Speed;
-            rb.Velocity = currentVelocity;
+            Vector2 movement = currentDirectionVector * Speed * Time.DeltaTime;
+            bool collided = mover.CalculateMovement(ref movement, out var result);
+            subpixel.Update(ref movement);
+            mover.ApplyMovement(movement);
 
-            // TODO: remove hack to instantly stop movement when rammed into a building
-            Vector2 movement = currentVelocity * Time.DeltaTime;
-            if (collider.CollidesWithAny(ref movement, out CollisionResult result)) {
+            if (collided) {
                 if (result.Collider.PhysicsLayer.IsFlagSet((int)Constants.PhysicsLayers.Buildings)) {
                     Speed = 0;
                 }
