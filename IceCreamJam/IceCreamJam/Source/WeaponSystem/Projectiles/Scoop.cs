@@ -7,20 +7,17 @@ using Nez.Textures;
 
 namespace IceCreamJam.WeaponSystem.Projectiles {
     class Scoop : Projectile {
-
         private ScoopType type;
-        public Vector2 truckVelocity;
 
         public void Initialize(Vector2 direction, Vector2 position, ScoopType type) {
             base.Initialize(direction, position);
-
             this.cost = 1;
             this.damage = 1;
-            this.speed = 180;
+            this.speed = 300;
             this.lifetime = 1;
 
             // If this scoop has been reused, set it to use the correct texture.
-            if(!IsNewProjectile && this.type != type) {
+            if (!IsNewProjectile && this.type != type) {
                 this.type = type;
                 SetScoopTextures();
             }
@@ -46,10 +43,7 @@ namespace IceCreamJam.WeaponSystem.Projectiles {
         }
 
         public override Vector2 CalculateVector() {
-            var dot = Vector2.Dot(Vector2.Normalize(truckVelocity), direction);
-            //if(dot > 0)
-            //    return (direction * speed * Time.DeltaTime) + dot * truckVelocity;
-            return (direction * speed * Time.DeltaTime);
+            return (direction * speed) * Time.DeltaTime;
         }
 
         public override void OnHit(CollisionResult? result) {

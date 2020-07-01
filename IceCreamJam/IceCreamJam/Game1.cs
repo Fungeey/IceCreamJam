@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Nez;
 using System.IO;
 
 namespace IceCreamJam {
@@ -24,6 +25,8 @@ namespace IceCreamJam {
 
         protected override void Initialize() {
             base.Initialize();
+            Nez.Scene.SetDefaultDesignResolution(1280, 720, Nez.Scene.SceneResolutionPolicy.ShowAll);
+            Debug.Log(Screen.Size);
             Scene = new MainScene();
             IsMouseVisible = false;
         }

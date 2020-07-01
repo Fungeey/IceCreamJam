@@ -75,6 +75,7 @@ namespace IceCreamJam.Components {
         public float Speed { get; private set; } = 0f;
         [Inspectable]
         public float MaxSpeed { get; private set; } = 200f;
+        public Vector2 Velocity => Speed * currentDirectionVector;
         [Inspectable]
         private float turnTimer = 0;
         private SubpixelVector2 subpixel = new SubpixelVector2();

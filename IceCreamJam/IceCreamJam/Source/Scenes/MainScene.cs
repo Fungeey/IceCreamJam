@@ -23,7 +23,6 @@ namespace IceCreamJam.Scenes {
             loader = AddSceneComponent(new TilemapLoader());
             roadSystem = AddSceneComponent(new RoadSystemComponent());
 
-            SetDesignResolution(1280, 720, SceneResolutionPolicy.ShowAllPixelPerfect);
             AddRenderer(new DefaultRenderer());
             RenderableComponentList.CompareUpdatableOrder = new PositionBasedRenderSorter();
 
@@ -53,12 +52,13 @@ namespace IceCreamJam.Scenes {
             }
 
             AddEntity(new Crosshair());
-            
-            Camera.MinimumZoom = 0.1f;
-            Camera.ZoomIn(0.25f);
+
+            Camera.RawZoom = 2f;
+            //Camera.AddComponent(new FollowCamera(truck));
             Camera.AddComponent(new CameraFollowComponent(Camera, truck) {
                 bounds = loader.mapBounds
             });
+            Camera.Entity.UpdateOrder = truck.UpdateOrder + 1;
         }
     }
 }

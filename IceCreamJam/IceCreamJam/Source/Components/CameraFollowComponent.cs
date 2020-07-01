@@ -3,44 +3,37 @@ using Microsoft.Xna.Framework;
 using Nez;
 
 namespace IceCreamJam.Source.Components {
-	class CameraFollowComponent : Component, IUpdatable {
+    class CameraFollowComponent : Component, IUpdatable {
+        public Entity target;
+        public RectangleF bounds;
+        private readonly Camera camera;
+        private readonly Truck truck;
 
-		private const bool doClampBounds = true;
+        private const float mouseInfluence = 75;
+        private float lerpSmoothness = 20;
 
-		public Entity target;
-		public RectangleF bounds;
-		private readonly Camera camera;
-		private readonly Truck truck;
+        public CameraFollowComponent(Camera camera, Entity target) {
+            this.camera = camera;
+            this.target = target;
+            if (target is Truck truck)
+                this.truck = truck;
 
-		private const float mouseInfluence = 100;
-		private const float lerpSmoothness = 10;
+            camera.Position = target.Position;
+        }
 
-		public CameraFollowComponent(Camera camera, Entity target) {
-			this.camera = camera;
-			this.target = target;
-			if(target is Truck truck)
-				this.truck = truck;
+        public void Update() {
+            var lerpPos = (target.Position - Entity.Position) / lerpSmoothness;
+            var halfScreen = camera.Bounds.Size * 0.5f;
 
-			camera.Position = target.Position;
-		}
+            camera.Position = Vector2.Clamp(Entity.Position + lerpPos, bounds.Location + halfScreen, bounds.Max - halfScreen) + GetMouseOffset();
+            //camera.Position = Entity.Position + lerpPos + GetMouseOffset();
+        }
 
-		public void Update() {
-			var lerpPos = (target.Position - Entity.Position) / lerpSmoothness;
+        private Vector2 GetMouseOffset() {
+            if (truck == null)
+                return Vector2.Zero;
 
-			var halfScreen = camera.Bounds.Size * 0.5f;
-
-			if(doClampBounds) {
-				camera.Position = Vector2.Clamp(Entity.Position + lerpPos, bounds.Location + halfScreen, bounds.Max - halfScreen) + GetMouseOffset();
-				return;
-			}
-			camera.Position = Entity.Position + lerpPos + GetMouseOffset();
-		}
-
-		private Vector2 GetMouseOffset() {
-			if(truck == null)
-				return Vector2.Zero;
-
-			return truck.GetVectorToMouse() * 1/mouseInfluence;
-		}
-	}
+            return truck.GetVectorToMouse() * 1 / mouseInfluence;
+        }
+    }
 }

@@ -32,6 +32,8 @@ namespace IceCreamJam.Entities {
 
             AddComponent(new PlayerWeaponComponent(new ScoopGun(), new PopsicleGun(), new BananaBigGun(), new BananaSmallGun()));
             AddComponent(new PlayerStateMachine());
+
+            AddComponent<AmmoRegen>();
         }
 
         public Vector2 GetVectorToMouse() {

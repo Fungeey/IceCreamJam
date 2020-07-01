@@ -14,7 +14,7 @@ namespace IceCreamJam.WeaponSystem.Weapons {
         private EntitySpringComponent coneSpring;
         private AnimatedEntity shootFX;
 
-        private ArcadeRigidbody truckrb;
+        private PlayerMovementComponent playerMove;
 
         public ScoopGun() {
             projectileType = typeof(Scoop);
@@ -37,7 +37,7 @@ namespace IceCreamJam.WeaponSystem.Weapons {
             AddFXAnimation();
             shootFX.ToggleVisible(defaultVisible);
 
-            truckrb = weaponComponent.GetComponent<ArcadeRigidbody>();
+            playerMove = weaponComponent.GetComponent<PlayerMovementComponent>();
         }
 
         private void AddFXAnimation() {
@@ -77,7 +77,6 @@ namespace IceCreamJam.WeaponSystem.Weapons {
             type = Scoop.GetNext(type);
             var s = Pool<Scoop>.Obtain();
             s.Initialize(dir, pos + weaponMountOffset + dir * 4, type);
-            s.truckVelocity = truckrb.Velocity * Time.DeltaTime;
 
             // Shock the cone
             coneSpring.Shock(-dir * 3);
