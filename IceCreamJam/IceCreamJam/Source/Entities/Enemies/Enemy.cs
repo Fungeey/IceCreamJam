@@ -44,6 +44,10 @@ namespace IceCreamJam.Entities.Enemies {
             }
         }
 
+        public void Move(Vector2 delta) {
+            mover.Move(delta, out var result);
+		}
+
         public virtual void OnDeath() {
 
         }

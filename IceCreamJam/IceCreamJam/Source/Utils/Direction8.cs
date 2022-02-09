@@ -9,7 +9,7 @@ namespace IceCreamJam {
 
 	public static class Direction8Ext {
 		public static Vector2 ToVector2(this Direction8 d) {
-			switch (d) {
+			switch(d) {
 				case Direction8.East:
 					return new Vector2(1, 0);
 				case Direction8.SouthEast:
@@ -45,6 +45,10 @@ namespace IceCreamJam {
 
 		public static bool IsHorizontal(this Direction8 d) {
 			return d == Direction8.West || d == Direction8.East;
+		}
+
+		public static bool IsOrthogonal(this Direction8 d) {
+			return d.IsHorizontal() || d.IsVertical();
 		}
 
 		public static Direction8 FromVector2(Vector2 vec) {

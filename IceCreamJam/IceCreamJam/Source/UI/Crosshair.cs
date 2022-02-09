@@ -1,4 +1,5 @@
-﻿using Nez;
+﻿using Microsoft.Xna.Framework;
+using Nez;
 using Nez.Sprites;
 using Nez.Textures;
 
@@ -51,5 +52,10 @@ namespace IceCreamJam.UI {
             else if(name == "TransitionBack")
                 animator.Play("Vertical");
         }
-    }
+
+		public override void DebugRender(Batcher batcher) {
+			base.DebugRender(batcher);
+            batcher.DrawCircle(Position, 15, Color.Red, 5);
+		}
+	}
 }

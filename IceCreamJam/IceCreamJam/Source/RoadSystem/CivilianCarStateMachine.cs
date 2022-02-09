@@ -64,7 +64,7 @@ namespace IceCreamJam.Source.RoadSystem {
 				}
 
 				private RectangleF GetCheckRectangle() {
-					if(!_context.currentDirection.IsHorizontal() && !_context.currentDirection.IsVertical())
+					if(!_context.currentDirection.IsOrthogonal())
 						return new RectangleF();
 
 					var pos = _context.Position + _context.currentDirection.ToNormalizedVector2(25 + checkDistance/2);

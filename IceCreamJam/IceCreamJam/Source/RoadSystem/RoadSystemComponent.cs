@@ -53,19 +53,14 @@ namespace IceCreamJam.RoadSystem {
         public override void Update() {
             base.Update();
 
-            if(truck == null) {
-                if((Scene as MainScene).truck != null) {
-                    truck = (Scene as MainScene).truck;
-                    UpdateTarget();
-                }
-                return;
-            }
+            if(truck == null && ((MainScene)Scene).truck != null)
+                truck = ((MainScene)Scene).truck;
 
             UpdateTarget();
         }
 
         private void UpdateTarget() {
-            var closestNode = GetNodeClosestTo(Scene.FindEntity("Crosshair").Position);
+            var closestNode = GetNodeClosestTo(truck.Position);
             if(truckTargetNode != closestNode)
                 OnTargetChange?.Invoke();
 

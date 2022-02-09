@@ -9,7 +9,7 @@ namespace IceCreamJam.Entities.Enemies {
     class Doctor : Enemy {
 
         private const float stunCooldown = 0.5f;
-        private const float range = 300f;
+        private const float range = 400f;
         private bool canBeStunned;
         private bool canShoot;
 

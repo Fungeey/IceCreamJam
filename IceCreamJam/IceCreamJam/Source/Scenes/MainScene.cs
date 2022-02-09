@@ -52,13 +52,22 @@ namespace IceCreamJam.Scenes {
             }
 
             AddEntity(new Crosshair());
-
-            Camera.RawZoom = 2f;
-            //Camera.AddComponent(new FollowCamera(truck));
+            
+            Camera.MinimumZoom = 0.1f;
+            Camera.ZoomOut(0.6f);
             Camera.AddComponent(new CameraFollowComponent(Camera, truck) {
                 bounds = loader.mapBounds
             });
             Camera.Entity.UpdateOrder = truck.UpdateOrder + 1;
         }
-    }
+
+		public override void Update() {
+			base.Update();
+
+			if(Input.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.P)) {
+                var ambulance = new Ambulance() { Position = loader.carSpawnPoints.RandomItem() };
+                AddEntity(ambulance);
+            }
+		}
+	}
 }

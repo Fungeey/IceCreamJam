@@ -41,7 +41,7 @@ namespace IceCreamJam.RoadSystem {
 
         // Unused but might come in handy later
         private RectangleF GetIntersectionArea(Direction8 dir) {
-            if(!dir.IsHorizontal() && !dir.IsVertical())
+            if(!dir.IsOrthogonal())
                 return new RectangleF();
 
             var pos = Position + dir.ToNormalizedVector2(48);

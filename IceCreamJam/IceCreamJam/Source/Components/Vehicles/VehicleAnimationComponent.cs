@@ -8,8 +8,8 @@ using System.Linq;
 namespace IceCreamJam.Source.Components.Vehicles {
 	class VehicleAnimationComponent : Component, IUpdatable {
 
-		private SpriteAnimator animator;
-		private AnimationSet moveAnim;
+		protected SpriteAnimator animator;
+		protected AnimationSet moveAnim;
 		private bool switchedAnimationSet = false;
 
 		public override void OnAddedToEntity() {
@@ -20,7 +20,7 @@ namespace IceCreamJam.Source.Components.Vehicles {
 			var texture = Entity.Scene.Content.LoadTexture(ContentPaths.Cars + "CarMaster" + Random.NextInt(8) + ".png");
 			var sprites = Sprite.SpritesFromAtlas(texture, 64, 64);
 			int directionalSelector() => (int)(Entity as CivilianCar).currentDirection;
-			moveAnim = new AnimationSet("move", directionalSelector, Enumerable.Range(0, 8).Select(i => Utility.SpriteAnimationFromParams(4, sprites[i * 2], sprites[i * 2 + 1])).ToList());
+			moveAnim = new AnimationSet("move", directionalSelector, Enumerable.Range(0, 8).Select(i => Utility.SpriteAnimationFromParams(4, sprites[i * 2], sprites[i * 2 + 1])).ToArray());
 			animator.AddAnimationSet(moveAnim);
 		}
 

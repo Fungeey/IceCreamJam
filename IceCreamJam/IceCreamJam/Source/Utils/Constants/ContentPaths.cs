@@ -24,6 +24,7 @@
         #region Enemies
         public const string Enemies = Sprites + "Enemies/";
         public const string Doctor = Enemies + "Doctor/";
+        public const string Ambulance = Enemies + "Ambulance/";
         #endregion
         #region Weapons
         public const string Weapons = Sprites + "Weapons/";
